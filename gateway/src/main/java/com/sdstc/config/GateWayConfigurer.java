@@ -13,8 +13,6 @@ public class GateWayConfigurer{
 		return builder.routes()
 				.route(p -> p.path("/api/system/**").uri("lb://system"))
 				.route(p -> p.path("/api/project1/**").uri("lb://project1"))
-				.route(p -> p.path("/api/project/**").uri("lb://project"))
-				.route(p -> p.path("/api/project/**").uri("lb://project"))
 				.build();
 	}
 }
