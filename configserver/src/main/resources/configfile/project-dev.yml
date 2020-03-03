@@ -1,0 +1,85 @@
+oauth2-server: http://localhost:8001
+eureka-server: http://localhost:8000
+
+server:
+  port: 8102
+
+spring:
+  application:
+    name: client3
+  #bus
+  rabbitmq:
+    host: 172.16.200.12
+    port: 31430
+    username: admin
+    password: qwe123-=
+  shardingsphere:
+    datasource:
+      names: order,system,project,product
+      order:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://172.16.200.12:30686/order?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: qwe123-=
+      system:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: qwe123-=        
+      project:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://172.16.200.12:30686/project?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: qwe123-=
+      product:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://172.16.200.12:30686/product?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: qwe123-=
+    sharding:
+        defaultDataSourceName: project
+        
+    props:
+      sql:
+        show: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server}/eureka/
+
+#超时时间设置
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+logging:
+  config: classpath:log4j2.xml
+
+security:
+  oauth2:
+    client:
+      client-id: client1
+      client-secret: 111111
+      access-token-uri: ${oauth2-server}/oauth/token
+      user-authorization-uri: ${oauth2-server}/oauth/authorize
+      grant-type: client_credentials
+    resource:
+      jwt:
+        key-uri: ${oauth2-server}/oauth/token_key

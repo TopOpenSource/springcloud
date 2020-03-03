@@ -1,0 +1,10 @@
+spring:
+  #配置中心  
+  cloud:
+     bus:
+        trace:
+           enabled: true
+     config:
+        uri: http://localhost:8002
+        name: system
+        profile: dev

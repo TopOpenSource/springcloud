@@ -1,0 +1,39 @@
+eureka-server: http://localhost:8000
+
+spring:
+  application:
+    name: configserver
+  profiles:
+     active: native
+  #配置
+  cloud:
+     config:
+        server:
+           native:
+              searchLocations: D:/config
+  #bus
+  rabbitmq:
+     host: 172.16.200.12
+     port: 31430
+     username: admin
+     password: qwe123-= 
+       
+#暴露bus 接口 ，否则更新 refresh
+management:
+  endpoints:  
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    bus-refresh:
+      enabled: true
+        
+server:
+  port: 8002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server}/eureka/
+      
+logging:
+  config: classpath:log4j2.xml

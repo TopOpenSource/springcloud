@@ -1,0 +1,22 @@
+server:
+ port: 8001
+
+spring:
+  session:
+    store-type: redis
+  redis:
+    host: 172.16.200.12
+    password: qwe123-=
+    port: 30308
+  datasource:
+    url: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: qwe123-=
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml,classpath:mapper/*/*.xml,classpath:mapper/*/*/*.xml
+  type-aliases-package: com.sdstc.*.model
+  configuration:
+    call-setters-on-nulls: true

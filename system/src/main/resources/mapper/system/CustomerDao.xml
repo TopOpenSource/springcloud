@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.CustomerDao">
+	<resultMap id="CustomerMap" type="com.sdstc.system.model.Customer">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="create_account" property="createAccount" />
+		<result column="modified_account" property="modifiedAccount" />
+		<result column="name" property="name" />
+		<result column="no" property="no" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="card_image_id" property="cardImageId" />
+		<result column="address" property="address" />
+		<result column="register_date" property="registerDate" />
+		<result column="state" property="state" />
+		<result column="pay_state" property="payState" />
+		<result column="expiry_date" property="expiryDate" />
+	</resultMap>
+	
+	<resultMap id="CustomerStateMap" type="com.sdstc.system.model.CustomerState">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="create_account" property="createAccount" />
+		<result column="modified_account" property="modifiedAccount" />
+		<result column="customer_id" property="customerId" />
+	    <result column="is_server_init" property="isServerInit" />
+	    <result column="is_lre_init" property="isLreInit" />
+	</resultMap>
+
+    <sql id="CustomerCols">
+        id,gmt_create,gmt_modified,create_account,modified_account,name,no,phone,email,card_image_id,address,register_date,state,pay_state,expiry_date
+    </sql>
+    
+    <sql id="CustomerProps">
+        #{id},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount},#{name},#{no},#{phone},#{email},#{cardImageId},#{address},#{registerDate},#{state},#{payState},#{expiryDate}
+    </sql>
+    
+    <sql id="CustomerStateCols">
+        id,gmt_create,gmt_modified,create_account,modified_account,customer_id,is_server_init,is_lre_init
+    </sql>
+    
+    <sql id="CustomerStateProps">
+        #{id},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount},#{customerId},#{isServerInit},#{isLreInit}
+    </sql>
+    
+    <insert id="insertCustomer" parameterType="com.sdstc.system.model.Customer">
+        insert into sys_customer
+        (<include refid="CustomerCols"></include>)
+        values
+        (<include refid="CustomerProps"></include>)
+    </insert>
+    
+    <insert id="insertCustomerState" parameterType="com.sdstc.system.model.CustomerState">
+        insert into sys_customer_state
+        (<include refid="CustomerStateCols"></include>)
+        values
+        (<include refid="CustomerStateProps"></include>)
+    </insert>
+    
+    
+</mapper>

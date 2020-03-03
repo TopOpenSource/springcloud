@@ -1,0 +1,8 @@
+rootProject.name = 'topcloud'
+include 'eureka'
+include 'oauth2server'
+include 'configserver'
+include 'gateway'
+include 'pub'
+include 'system'
+include 'project'

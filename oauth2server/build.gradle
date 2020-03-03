@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+dependencies {
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-log4j2')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1')
+    compile('mysql:mysql-connector-java:8.0.19')
+    compile project(":pub")
+}
