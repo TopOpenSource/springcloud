@@ -12,7 +12,7 @@ public class GateWayConfigurer{
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p -> p.path("/api/system/**").uri("lb://system"))
-				.route(p -> p.path("/api/project2/**").uri("lb://project2"))
+				.route(p -> p.path("/api/project/**").uri("lb://project"))
 				.build();
 	}
 }
