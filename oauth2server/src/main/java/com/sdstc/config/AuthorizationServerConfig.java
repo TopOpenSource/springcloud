@@ -70,7 +70,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		//密码模式需要
-		endpoints.authenticationManager(authenticationManager1);
+		endpoints.authenticationManager(authenticationManager);
 		//refresh需要
 		endpoints.userDetailsService(userDetailService);
 		
