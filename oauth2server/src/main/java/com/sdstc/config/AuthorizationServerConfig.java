@@ -22,8 +22,11 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import lombok.extern.log4j.Log4j2;
+
 @Configuration
 @EnableAuthorizationServer
+@Log4j2
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
@@ -49,6 +52,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Value("${oauth2.refreshTokenValiditySeconds}")
 	private Integer refreshTokenValiditySeconds;
+	
+	@Value("${oauth2.tokenType}")
+	private String tokenType;
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -72,7 +78,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	}
 
 	@Bean
-	public TokenStore jwtTokenStore() {
+	public TokenStore tokenStore() {
 		return new RedisTokenStore(redisConnectionFactory);
 	}
 
@@ -88,14 +94,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public DefaultTokenServices defaultTokenServices() {
 		DefaultTokenServices tokenServices = new DefaultTokenServices();
 		//设置token存储
-		tokenServices.setTokenStore(jwtTokenStore());
+		tokenServices.setTokenStore(tokenStore());
 
-		//设置token转换和类型
-		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter()));
-		tokenServices.setTokenEnhancer(tokenEnhancerChain);
-
+		//设置token类型 (jwt 使用)
+		if(tokenType.equals("jwt")) {
+			TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+			tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter()));
+			tokenServices.setTokenEnhancer(tokenEnhancerChain);
+		}else if(tokenType.equals("bearer")){
+			
+		}else {
+            log.error("unsupport this token type"+tokenType);			
+		}
+		
 		tokenServices.setSupportRefreshToken(true);
+		//设置refresh token是否重复使用,true:reuse;false:no reuse.
+		tokenServices.setReuseRefreshToken(false);
+		
 		tokenServices.setClientDetailsService(clientDetailsServiceJdbc);
 
 		// token有效期

@@ -1,5 +1,7 @@
 package com.sdstc.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +31,8 @@ public class TokenController {
 	}
 
 	@RequestMapping("user")
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public String user() {
-		return "user";
+	public Principal user(Principal principal) {
+		return principal;
 	}
 
 	@GetMapping("/removeToken")
@@ -48,9 +49,4 @@ public class TokenController {
 		return true;
 	}
 
-	@GetMapping("/changeAuth")
-	public String changeAuth() {
-
-		return null;
-	}
 }

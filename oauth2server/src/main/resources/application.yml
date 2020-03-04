@@ -22,6 +22,10 @@ mybatis:
     call-setters-on-nulls: true
     
 oauth2:
-  accessTokenValiditySeconds: 300
-  refreshTokenValiditySeconds: 500
+  #token有效期
+  accessTokenValiditySeconds: 180
+  #token刷新有效期
+  refreshTokenValiditySeconds: 300
   signingKey: qwe123-=
+  #token类型 支持 beare 和 jwt
+  tokenType: bearer
