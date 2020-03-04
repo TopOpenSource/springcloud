@@ -29,7 +29,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	@Autowired
 	private  UserDao userDao;
 
-	private final String redisHeader="current_customer_";
+	public static final String redisHeader="current_customer_";
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
