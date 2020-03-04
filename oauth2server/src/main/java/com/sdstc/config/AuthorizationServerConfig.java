@@ -56,7 +56,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter()));
 		endpoints.tokenStore(jwtTokenStore()).tokenEnhancer(tokenEnhancerChain);
 		//密码模式需要
-		endpoints.authenticationManager(authenticationManager);
+		endpoints.authenticationManager(authenticationManager1);
 		//refresh需要
 		endpoints.userDetailsService(userDetailService);
     }
