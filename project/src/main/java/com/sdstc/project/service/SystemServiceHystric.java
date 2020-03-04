@@ -7,7 +7,12 @@ public class SystemServiceHystric implements SystemService {
 
 	@Override
 	public String testAdmin() {
-		return null;
+		return "error-admin-";
+	}
+
+	@Override
+	public String testUser() {
+		return "error-user-";
 	}
 
 

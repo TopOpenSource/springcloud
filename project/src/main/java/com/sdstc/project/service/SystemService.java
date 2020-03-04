@@ -7,4 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface SystemService {
 	@RequestMapping(value = "/api/system/test/testAdmin")
 	String testAdmin();
+	
+	@RequestMapping(value = "/api/system/test/testUser")
+	String testUser();
 }

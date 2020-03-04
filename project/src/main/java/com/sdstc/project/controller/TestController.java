@@ -24,6 +24,16 @@ public class TestController {
         Authentication authentication = securityContext.getAuthentication();
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
         System.out.println(details.getTokenValue());
-        return systemService.testAdmin()+"xxx";
+        return systemService.testAdmin()+"-admin";
+    }
+    
+    @RequestMapping("testUser")
+	@PreAuthorize("hasRole('ROLE_USER')")
+    public String testUser() {
+    	SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+        System.out.println(details.getTokenValue());
+        return systemService.testUser()+"-user";
     }
 }

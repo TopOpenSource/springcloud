@@ -5,11 +5,11 @@ spring:
   session:
     store-type: redis
   redis:
-    host: 172.16.200.12
+    host: 172.16.200.99
     password: qwe123-=
-    port: 30308
+    port: 32728
   datasource:
-    url: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.16.200.99:30592/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: qwe123-=
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,3 +20,12 @@ mybatis:
   type-aliases-package: com.sdstc.*.model
   configuration:
     call-setters-on-nulls: true
+    
+oauth2:
+  #token有效期
+  accessTokenValiditySeconds: 180
+  #token刷新有效期
+  refreshTokenValiditySeconds: 300
+  signingKey: qwe123-=
+  #token类型 支持 beare 和 jwt
+  tokenType: bearer

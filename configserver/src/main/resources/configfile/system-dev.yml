@@ -8,33 +8,37 @@ server:
 spring:
   application:
     name: system
-  main:
-    allow-bean-definition-overriding: true
+    #bus
+  rabbitmq:
+    host: 172.16.200.99
+    port: 32566
+    username: admin
+    password: qwe123-=
   shardingsphere:
     datasource:
       names: order,system,project,product
       order:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/order?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.99:30592/order?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=
       system:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.99:30592/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=        
       project:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/project?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.99:30592/project?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=
       product:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/product?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.99:30592/product?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=
     sharding:
@@ -48,12 +52,7 @@ spring:
     props:
       sql:
         show: true
-  #bus
-  rabbitmq:
-    host: 172.16.200.12
-    port: 31430
-    username: admin
-    password: qwe123-=
+
 
 #注册中心  
 eureka:
@@ -81,5 +80,8 @@ security:
       access-token-uri: ${oauth2-server}/oauth/token
       user-authorization-uri: ${oauth2-server}/oauth/authorize
     resource:
-      jwt:
-        key-uri: ${oauth2-server}/oauth/token_key
+      user-info-uri: ${oauth2-server}/api/user
+      prefer-token-info: false
+    #resource:
+    #  jwt:
+    #    key-uri: ${oauth2-server}/oauth/token_key
