@@ -1,4 +1,4 @@
-package com.sdstc.pub.exception;
+package com.sdstc.pub.config.exception;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -16,13 +16,13 @@ public class ExceptionHandler {
 	@org.springframework.web.bind.annotation.ExceptionHandler(value = Exception.class)
 	public ResultDto handler(Exception e) {
 		if (e instanceof IOException) {
-			return new ResultDto(200, "SUCCESS");
+			return new ResultDto(-1, "IO错误！");
 		} else if (e instanceof AccessDeniedException) {
 			log.error("exception:{}", e.getMessage(), e);
-			return new ResultDto(403, "无权限!");
-		} else {
+			return new ResultDto(-2, "无操作权限！");
+		}  else {
 			log.error("exception:{}", e.getMessage(), e);
-			return new ResultDto(500, "服务器内部错误,请联系系统管理员!");
+			return new ResultDto(-100, "错误!");
 		}
 	}
 }

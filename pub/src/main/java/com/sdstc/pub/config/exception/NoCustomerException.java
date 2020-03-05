@@ -1,4 +1,4 @@
-package com.sdstc.pub.exception;
+package com.sdstc.pub.config.exception;
 
 /**
  * 

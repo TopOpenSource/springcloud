@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -30,6 +31,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	private  UserDao userDao;
 
 	public static final String redisHeader="current_customer_";
+	
+	@Value("${oauth2.refreshTokenValiditySeconds}")
+	private Integer refreshTokenValiditySeconds;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -63,13 +67,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			List<Customer> customers=userDao.getCustomersByUser(account);
 			if(customers.size()>0) {
 				Customer customer=customers.get(0);
-				redisDao.setKey(redisHeader+account, customer.getId(), 1000000);
+				redisDao.setKey(redisHeader+account, customer.getId(), refreshTokenValiditySeconds*1000);
 				return customer.getId();
 			}else {
 				log.error("the loger has not customers");
 				return null;
 			}
 		}else {
+			redisDao.setKey(redisHeader+account, currentCustomerId, refreshTokenValiditySeconds*1000);
 			return currentCustomerId;
 		}
 	}
