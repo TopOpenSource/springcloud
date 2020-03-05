@@ -1,4 +1,4 @@
-oauth2-server: http://localhost:8001
+gateway-server: http://localhost:88
 eureka-server: http://localhost:8000
 
 #端口          
@@ -77,10 +77,10 @@ security:
     client:
       client-id: client1
       client-secret: 111111
-      access-token-uri: ${oauth2-server}/oauth/token
-      user-authorization-uri: ${oauth2-server}/oauth/authorize
+      access-token-uri: ${gateway-server}/oauth/token
+      user-authorization-uri: ${gateway-server}/oauth/authorize
     resource:
-      user-info-uri: ${oauth2-server}/api/user
+      user-info-uri: ${gateway-server}/api/oauth2/user
       prefer-token-info: false
     #resource:
     #  jwt:
