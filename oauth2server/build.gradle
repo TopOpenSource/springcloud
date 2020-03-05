@@ -13,9 +13,14 @@ repositories {
 dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile('org.springframework.boot:spring-boot-starter-log4j2')
-    compile('org.springframework.boot:spring-boot-starter-web')
+    //eureka
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    //oauth2
     compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    //redis
     compile('org.springframework.boot:spring-boot-starter-data-redis')
+    //mybatis
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1')
     compile('mysql:mysql-connector-java:8.0.19')
     compile project(":pub")

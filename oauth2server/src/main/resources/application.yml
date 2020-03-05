@@ -1,7 +1,16 @@
+eureka-server: http://localhost:8000
+
 server:
  port: 8001
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server}/eureka/
+      
 spring:
+  application:
+    name: oauth2
   session:
     store-type: redis
   redis:

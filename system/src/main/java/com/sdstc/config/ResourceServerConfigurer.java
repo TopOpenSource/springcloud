@@ -23,6 +23,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
                 .requestMatchers().antMatchers("/api/**")
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/system/system/login","/api/system/system/refreshToken").permitAll()
                 .antMatchers("/api/**").authenticated();
     }
 }
