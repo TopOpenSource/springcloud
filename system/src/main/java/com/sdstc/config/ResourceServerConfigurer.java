@@ -11,7 +11,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.sdstc.config.securityFilter.validateCode.CustomAuthenticationFailureHandler;
 import com.sdstc.config.securityFilter.validateCode.ValidateCodeFilter;
-
+/**
+   * 资源安全配置
+ * @author cheng
+ *
+ */
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -29,7 +33,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     	ValidateCodeFilter validateCodeFilter=new ValidateCodeFilter();
     	validateCodeFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);
     	
-        http
+    	http
                 .addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
                 .requestMatchers().antMatchers("/api/**")
                 .and()

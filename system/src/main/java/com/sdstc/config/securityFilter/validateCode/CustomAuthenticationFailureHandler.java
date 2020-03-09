@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 过滤器失败处理器
+ * 失败处理器
  * 
  * @author cheng
  *
@@ -37,6 +37,5 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 		// 失败返回json
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().append(objectMapper.writeValueAsString(map));
-
 	}
 }

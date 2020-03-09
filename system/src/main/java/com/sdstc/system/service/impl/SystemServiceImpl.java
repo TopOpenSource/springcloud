@@ -54,7 +54,27 @@ public class SystemServiceImpl implements SystemService {
 
 	@Override
 	public TokenDto refreshToken(String refreshToken) {
-		return null;
+		ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://oauth2/oauth/token?grant_type=refresh_token&client_id=" + clientId + "&client_secret=" + clientPwd +"&refresh_token="+refreshToken, null, String.class);
+		if (responseEntity.getStatusCode().equals(HttpStatus.valueOf(200))) {
+			HashMap result = JSONObject.parseObject(responseEntity.getBody(), HashMap.class);
+
+			TokenDto token = new TokenDto();
+			if (result.containsKey("access_token")) {
+				token.setAccessToken(String.valueOf(result.get("access_token")));
+			}
+
+			if (result.containsKey("refresh_token")) {
+				token.setRefreshToken(String.valueOf(result.get("refresh_token")));
+			}
+
+			if (result.containsKey("expires_in")) {
+				token.setExpiresIn(Integer.valueOf(String.valueOf(result.get("expires_in"))));
+			}
+
+			return token;
+		} else {
+			return null;
+		}
 	}
 
 }

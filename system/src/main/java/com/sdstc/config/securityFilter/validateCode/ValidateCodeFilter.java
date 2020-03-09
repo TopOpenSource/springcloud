@@ -15,6 +15,11 @@ import com.sdstc.config.exception.ValidCodeException;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
+/**
+   * 验证过滤器
+ * @author cheng
+ *
+ */
 @Log4j2
 public class ValidateCodeFilter extends OncePerRequestFilter {
 	@Setter
