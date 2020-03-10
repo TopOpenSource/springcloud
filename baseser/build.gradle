@@ -10,13 +10,7 @@ repositories {
     }
     mavenCentral()
 }
-/**
-dependencyManagement {
-        imports {
-            mavenBom "org.activiti.dependencies:activiti-dependencies:7.1.0.M5"
-        }
-    }
-   **/ 
+
 dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile('org.springframework.boot:spring-boot-starter-log4j2')
