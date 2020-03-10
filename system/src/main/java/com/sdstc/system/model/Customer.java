@@ -27,5 +27,5 @@ public class Customer extends BaseModel {
 	private char state;
 	private char payState;
 	private Date expiryDate;
-
+    
 }

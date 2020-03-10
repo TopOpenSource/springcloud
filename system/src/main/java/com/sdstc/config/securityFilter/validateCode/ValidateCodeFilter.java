@@ -28,9 +28,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		log.info("valid code");
-		if(request.getRequestURI().equals("/api/system/system/login") && request.getMethod().equals("POST")){
+		if("/api/system/system/login".equals(request.getRequestURI()) && "POST".equals(request.getMethod())){
 			String validateCode = request.getParameter("validateCode");
-			if (validateCode != null && validateCode.equals("abc")) {
+			if (validateCode != null && "abc".equals(validateCode)) {
 				authenticationFailureHandler.onAuthenticationFailure(request, response, new ValidCodeException("xxx"));
 			} else {
 				filterChain.doFilter(request, response);

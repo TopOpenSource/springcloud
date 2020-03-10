@@ -18,6 +18,10 @@ dependencies {
     //oauth2
     compile('org.springframework.cloud:spring-cloud-starter-oauth2')
     compile('org.springframework.boot:spring-boot-starter-web')
+    //config
+    compile('org.springframework.cloud:spring-cloud-config-client')
+    compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
     //redis
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     //mybatis

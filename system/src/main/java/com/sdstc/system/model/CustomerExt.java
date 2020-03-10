@@ -5,9 +5,14 @@ import com.sdstc.pub.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * 
+ * @author cheng
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class CustomerState  extends BaseModel{
+public class CustomerExt  extends BaseModel{
    private Long id;
    private Long customerId;
    private char isServerInit;

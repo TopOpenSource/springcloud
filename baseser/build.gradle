@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+/**
+dependencyManagement {
+        imports {
+            mavenBom "org.activiti.dependencies:activiti-dependencies:7.1.0.M5"
+        }
+    }
+   **/ 
+dependencies {
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-log4j2')
+    //eureka
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    //feign & hystrix
+    compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
+    //oauth2
+    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    //config
+    compile('org.springframework.cloud:spring-cloud-config-client')
+    compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    //mybatis
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1')
+    compile('mysql:mysql-connector-java:8.0.19')
+    //activiti
+    compile('org.activiti:activiti-spring-boot-starter:7.1.0.M6'){
+     exclude group: 'org.springframework.boot', module: 'spring-boot'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-actuator-autoconfigure'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-configuration-processor'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-integration'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
+    }
+    
+    compile project(":pub")
+}

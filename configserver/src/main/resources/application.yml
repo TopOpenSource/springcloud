@@ -13,8 +13,8 @@ spring:
               searchLocations: D:/config
   #bus
   rabbitmq:
-     host: 172.16.200.99
-     port: 32566
+     host: 172.16.200.12
+     port: 31430
      username: admin
      password: qwe123-= 
        

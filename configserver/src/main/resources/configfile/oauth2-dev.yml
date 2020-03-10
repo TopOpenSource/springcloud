@@ -11,14 +11,20 @@ eureka:
 spring:
   application:
     name: oauth2
+  #bus
+  rabbitmq:
+    host: 172.16.200.12
+    port: 31430
+    username: admin
+    password: qwe123-=
   session:
     store-type: redis
   redis:
-    host: 172.16.200.99
+    host: 172.16.200.12
     password: qwe123-=
-    port: 32728
+    port: 30308
   datasource:
-    url: jdbc:mysql://172.16.200.99:30592/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: qwe123-=
     driver-class-name: com.mysql.cj.jdbc.Driver
