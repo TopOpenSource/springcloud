@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdstc.code.dao.TableMapper">
+    
+    <resultMap id="ColumnMap" type="com.sdstc.code.model.Column">
+		<id column="column_name"  property="columnName" />
+		<result column="data_type" property="dataType" />
+		<result column="column_key" property="columnKey" />
+		<result column="column_comment" property="columnComment" />
+	</resultMap>
+    
+    <select id="getColumns"  resultMap="ColumnMap">
+		 select 
+		 t.column_name,t.data_type,t.column_key,t.column_comment 
+		 from information_schema.columns  t
+		 where t.TABLE_NAME=#{tableName} and t.TABLE_SCHEMA=#{scheme}
+		 order by t.ORDINAL_POSITION
+	</select>
+	
+</mapper>
