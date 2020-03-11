@@ -19,7 +19,7 @@ public class Params {
 			put("datetime", "Date");
 			put("varchar", "String");
 			put("bigint", "Long");
-			put("char", "Char");
+			put("char", "char");
 			put("int", "Integer");
 			put("decimal","BigDecimal");
 		}

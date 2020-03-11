@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.SysRoleDao">
+	
+	<resultMap id="SysRoleMap" type="com.sdstc.system.model.SysRole">
+	    <id column="id" property="id" />
+	    <result column="gmt_create" property="gmtCreate" />
+	    <result column="gmt_modified" property="gmtModified" />
+	    <result column="name" property="name" />
+	    <result column="code" property="code" />
+	    <result column="create_account" property="createAccount" />
+	    <result column="modified_account" property="modifiedAccount" />
+	</resultMap>
+	
+    <sql id="SysRoleCols">
+      id,gmt_create,gmt_modified,name,code,create_account,modified_account
+    </sql>
+    
+    <sql id="SysRoleProps">
+      #{id},#{gmtCreate},#{gmtModified},#{name},#{code},#{createAccount},#{modifiedAccount}
+    </sql>
+    
+    <sql id="SysRoleWhere">
+      
+    </sql>
+    
+    <sql id="SysRoleDtoWhere">
+      
+    </sql>
+	
+	<select id="selectByDto"  parameterType="com.sdstc.system.model.SysRole" resultMap="SysRoleMap">
+		select
+			<include refid="SysRoleCols"></include>
+		from sys_role
+		<where>
+		    <include refid="SysRoleWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectCountByDto"  parameterType="com.sdstc.system.model.SysRole" resultType="Integer">
+		select
+			count(*)
+		from sys_role
+		<where>
+		    <include refid="SysRoleWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectPageByDto" resultMap="SysRoleMap">
+		select
+			<include refid="SysRoleCols"></include>
+		from pub_file
+		<where>
+		    <include refid="SysRoleDtoWhere"></include>
+		</where>
+		limit #{pageDto.start},#{pageDto.pageSize}
+	</select>
+</mapper>

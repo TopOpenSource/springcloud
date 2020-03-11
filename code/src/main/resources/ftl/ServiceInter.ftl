@@ -3,9 +3,9 @@ package ${serviceInterPackage};
 import java.util.List;
 import ${modelPackage}.${entityName};
 import com.sdstc.pub.dto.PageDto;
-<#if pkJavaType=="Date" || tenantKeyJavaType=="Date">
+<#if pkJavaType=="Date" || (tenantKeyJavaType?? && tenantKeyJavaType=="Date")>
 import java.util.Date;
-<#elseif pkJavaType=="BigDecimal" || tenantKeyJavaType=="BigDecimal">
+<#elseif pkJavaType=="BigDecimal" || (tenantKeyJavaType?? && tenantKeyJavaType=="BigDecimal")>
 import java.math.BigDecimal;
 </#if>
 /**

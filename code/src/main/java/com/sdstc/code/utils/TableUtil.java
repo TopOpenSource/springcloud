@@ -51,9 +51,9 @@ public class TableUtil {
 
 		for (Column sqlCol : sqlCols) {
 			Column col = parseCol(sqlCol);
-			if ("Date".equals(col.getJavaDataType())) {
+			if ("Date".equals(col.getJavaDataType())&& (!Params.parentColumns.contains(col.getColumnName()))) {
 				hasDate = true;
-			} else if("BigDecimal".equals(col.getJavaDataType())){
+			} else if("BigDecimal".equals(col.getJavaDataType())&& (!Params.parentColumns.contains(col.getColumnName()))){
 				hasBigDecimal=true;
 			}else {
 				

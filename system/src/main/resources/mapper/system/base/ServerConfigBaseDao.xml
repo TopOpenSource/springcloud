@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.base.ServerConfigBaseDao">
+	
+	<resultMap id="ServerConfigMap" type="com.sdstc.system.model.ServerConfig">
+	    <id column="id" property="id" />
+	    <result column="type" property="type" />
+	    <result column="key" property="key" />
+	    <result column="value" property="value" />
+	</resultMap>
+	
+    <sql id="ServerConfigCols">
+      id,type,key,value
+    </sql>
+    
+    <sql id="ServerConfigProps">
+      #{id},#{type},#{key},#{value}
+    </sql>
+    
+    <insert id="insert" parameterType="com.sdstc.system.model.ServerConfig">
+        insert into server_config
+        (<include refid="ServerConfigCols"></include>)
+        values
+        (<include refid="ServerConfigProps"></include>)
+    </insert>
+        
+    <update id="updateSelectiveByPK" parameterType="com.sdstc.system.model.ServerConfig">
+		update server_config
+		<set>
+		  
+	        <if test="type != null">
+		        type = #{type},
+		    </if>
+		  
+	        <if test="key != null and key != ''">
+		        key = #{key},
+		    </if>
+		  
+	        <if test="value != null and value != ''">
+		        value = #{value},
+		    </if>
+		</set>
+		<where>
+		  id = #{id} 
+		</where> 
+	</update>
+	
+	<update id="updateByPK" parameterType="com.sdstc.system.model.ServerConfig">
+		update server_config
+		<set>
+	    type = #{type},
+	    key = #{key},
+	    value = #{value},
+		</set>
+		<where>
+		  id = #{id} 
+		</where> 
+	</update>
+	
+	<delete id="deleteByPK">
+		delete from server_config
+		<where>
+		  id = #{id} 
+		</where> 
+	</delete>
+	
+	<select id="selectByPK" resultMap="ServerConfigMap">
+		select
+			<include refid="ServerConfigCols"></include>
+		from server_config
+		<where>
+		  id = #{id} 
+		</where> 
+	</select>
+	
+</mapper>

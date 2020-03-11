@@ -3,18 +3,31 @@ package com.sdstc.system.model;
 import com.sdstc.pub.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.math.BigDecimal;
 
 /**
  * @author system
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class PubFile extends BaseModel {
+public class PubFileRelation extends BaseModel {
+    /**
+	 * 
+	 */
     private Long id;
-    private String name;
-    private BigDecimal size;
-    private String path;
+    /**
+	 * 关联类型
+	 */
     private String type;
+    /**
+	 * 文件ID
+	 */
+    private Long fileId;
+    /**
+	 * 关联对象ID
+	 */
+    private Long refId;
+    /**
+	 * 
+	 */
     private Long customerId;
 }

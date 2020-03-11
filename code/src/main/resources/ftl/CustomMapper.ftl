@@ -24,18 +24,9 @@
       
     </sql>
     
-    <sql id="${entityName}Where">
+    <sql id="${entityName}DtoWhere">
       
     </sql>
-    
-    <select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
-		select
-			<include refid="${entityName}Cols"></include>
-		from ${tableName}
-		<where>
-		    
-		</where>
-	</select>
 	
 	<select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
 		select
@@ -62,6 +53,6 @@
 		<where>
 		    <include refid="${entityName}DtoWhere"></include>
 		</where>
-		limit ${"#{pageDto.start}"},${"#{pageDto.pageSize}"}
+		limit ${r"#{pageDto.start}"},${r"#{pageDto.pageSize}"}
 	</select>
 </mapper>

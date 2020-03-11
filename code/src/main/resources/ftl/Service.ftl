@@ -13,7 +13,7 @@ import com.sdstc.pub.dto.PageDto;
  * @author 
  *
  */
-@Service("pubFileService")
+@Service("${entityNameLowerCase}Service")
 public class ${entityName}ServiceImpl implements ${entityName}Service{
     @Autowired
 	private ${entityName}Dao ${entityNameLowerCase}Dao;

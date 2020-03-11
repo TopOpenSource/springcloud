@@ -13,47 +13,56 @@ import com.sdstc.code.utils.freemarker.GeServiceImpl;
 
 public class CodeStart {
 	public static void main(String[] args) {
-		// 模块名 为空放到c盘
-		String basePath = "D://";
-		// dao包名
-		String daoPackage = "com.sdstc.system.dao";
-		// model包名
-		String modelPackage = "com.sdstc.system.model";
-		//service接口包名
-		String serviceInterPackage="com.sdstc.system.service";
-		//service包名
-		String servicePackage="com.sdstc.system.service.impl";
-		
-		// xml路径
-		String xmlPackage = "resources/mapper/system";
+		// 路径
+		String basePath = "D:\\workspace\\topcloud\\topcloud\\system\\src\\main\\java\\";
+		String basePath2 = "D:\\workspace\\topcloud\\topcloud\\system\\src\\main\\";
 
-		// 数据源 不可为空
+		// 服务名称
+		String serviceName = "system";
+
+		// 数据源
 		String jdbcUrl = "172.16.200.12:30686";
 		String scheme = "system";
 		String userName = "root";
 		String pwd = "qwe123-=";
-		String tableName = "pub_file";
+		String tableName = "sys_user_ext";
+         
+		// dao包名  推荐默认
+		String daoPackage = "com.sdstc." + serviceName + ".dao";
+		// model包名 推荐默认
+		String modelPackage = "com.sdstc." + serviceName + ".model";
+		// service接口包名 推荐默认
+		String serviceInterPackage = "com.sdstc." + serviceName + ".service";
+		// service包名 推荐默认
+		String servicePackage = "com.sdstc." + serviceName + ".service.impl";
+		// xml路径
+		String xmlPackage = "resources/mapper/"+serviceName;
 
 		Mybatis mybatis = new Mybatis(jdbcUrl, scheme, userName, pwd, tableName);
-		Table table = TableUtil.parseTable(tableName, mybatis.getColumns(), daoPackage, modelPackage, xmlPackage,serviceInterPackage,servicePackage);
+		Table table = TableUtil.parseTable(tableName, mybatis.getColumns(), daoPackage, modelPackage, xmlPackage, serviceInterPackage, servicePackage);
 
+		// 生成baseDao
 		GeBaseDao geDao = new GeBaseDao();
-		geDao.proccess(table,basePath);
-		GeCustomDao geCustomDao=new GeCustomDao();
+		geDao.proccess(table, basePath);
+		// 生成customDao
+		GeCustomDao geCustomDao = new GeCustomDao();
 		geCustomDao.proccess(table, basePath);
-		
+		// 生成baseMapperxml
 		GeBaseMapper geMapper = new GeBaseMapper();
-		geMapper.proccess(table,basePath);
-		GeCustomMapper geCustomMapper=new GeCustomMapper();
-		geCustomMapper.proccess(table, basePath);
-		
+		geMapper.proccess(table, basePath2);
+		// 生成customerMapperxml
+		GeCustomMapper geCustomMapper = new GeCustomMapper();
+		geCustomMapper.proccess(table, basePath2);
+		// 生成实体类
 		GeModel geModel = new GeModel();
-        geModel.proccess(table,basePath);
-        GeService geService=new GeService();
-        geService.proccess(table, basePath);
-        GeServiceImpl geServiceImpl=new GeServiceImpl();
-        geServiceImpl.proccess(table, basePath);
-        
+		geModel.proccess(table, basePath);
+		// 生成服务接口
+		GeService geService = new GeService();
+		geService.proccess(table, basePath);
+		// 生成服务实现类
+		GeServiceImpl geServiceImpl = new GeServiceImpl();
+		geServiceImpl.proccess(table, basePath);
+
 	}
 
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.ServerConfigDao">
+	
+	<resultMap id="ServerConfigMap" type="com.sdstc.system.model.ServerConfig">
+	    <id column="id" property="id" />
+	    <result column="type" property="type" />
+	    <result column="key" property="key" />
+	    <result column="value" property="value" />
+	</resultMap>
+	
+    <sql id="ServerConfigCols">
+      id,type,key,value
+    </sql>
+    
+    <sql id="ServerConfigProps">
+      #{id},#{type},#{key},#{value}
+    </sql>
+    
+    <sql id="ServerConfigWhere">
+      
+    </sql>
+    
+    <sql id="ServerConfigDtoWhere">
+      
+    </sql>
+    
+	
+	<select id="selectByDto"  parameterType="com.sdstc.system.model.ServerConfig" resultMap="ServerConfigMap">
+		select
+			<include refid="ServerConfigCols"></include>
+		from server_config
+		<where>
+		    <include refid="ServerConfigWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectCountByDto"  parameterType="com.sdstc.system.model.ServerConfig" resultType="Integer">
+		select
+			count(*)
+		from server_config
+		<where>
+		    <include refid="ServerConfigWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectPageByDto" resultMap="ServerConfigMap">
+		select
+			<include refid="ServerConfigCols"></include>
+		from pub_file
+		<where>
+		    <include refid="ServerConfigDtoWhere"></include>
+		</where>
+		limit #{pageDto.start},#{pageDto.pageSize}
+	</select>
+</mapper>

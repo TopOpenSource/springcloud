@@ -35,7 +35,8 @@
 		 <#-- 属性不是主键-->
 		 <#if col.javaColumnName != primaryKey>
 		 <#-- 属性不是租户键-->
-		  <#if tenantKey?? || col.javaColumnName != tenantKey>
+		  <#if tenantKey?? || col.javaColumnName != tenantKey!>
+		  
 		  <#-- 属性为字符串类型-->
 	      <#if col.javaDataType=="String">
 	        <if test="${col.javaColumnName} != null and ${col.javaColumnName} != ''">
@@ -65,7 +66,7 @@
     <#-- 属性不是主键-->
 	 <#if col.javaColumnName != primaryKey>
 	 <#-- 属性不是租户键-->
-	  <#if tenantKey?? || col.javaColumnName != tenantKey>
+	  <#if tenantKey?? || col.javaColumnName != tenantKey!>
 	    ${col.columnName} = ${"#{"+col.javaColumnName+"}"},
 	  </#if>
 	 </#if>  

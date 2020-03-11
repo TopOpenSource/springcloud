@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+   
+   compile('org.apache.logging.log4j:log4j-slf4j-impl:2.13.0')
+   compile('org.apache.commons:commons-lang3:3.9')
+   compile('com.alibaba:fastjson:1.2.66')
+}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -13,6 +14,9 @@ import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sdstc.model.UserSecurity;
+import com.sdstc.pub.dto.LoginUserInfo;
 
 
 @RestController
@@ -33,6 +37,19 @@ public class TokenController {
 	@RequestMapping("user")
 	public Principal user(Principal principal) {
 		return principal;
+	}
+	
+	@RequestMapping("userInfo")
+	public LoginUserInfo userInfo(Principal principal) {
+		OAuth2Authentication oauth2=(OAuth2Authentication) principal;
+		UserSecurity user=(UserSecurity) oauth2.getUserAuthentication().getPrincipal();
+		LoginUserInfo userInfo=new LoginUserInfo();
+		userInfo.setCustomerId(user.getCustomerId());
+		userInfo.setUserAccount(user.getUsername());
+		for(GrantedAuthority auth:user.getAuthorities()) {
+			userInfo.addAuth(auth.getAuthority());
+		}
+		return userInfo;
 	}
 
 	@GetMapping("/removeToken")

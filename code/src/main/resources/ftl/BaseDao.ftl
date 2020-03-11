@@ -3,9 +3,9 @@ package ${baseDaoPackage};
 
 import org.apache.ibatis.annotations.Param;
 import ${modelPackage}.${entityName};
-<#if pkJavaType=="Date" || tenantKeyJavaType=="Date">
+<#if pkJavaType=="Date" || (tenantKeyJavaType?? && tenantKeyJavaType=="Date")>
 import java.util.Date;
-<#elseif pkJavaType=="BigDecimal" || tenantKeyJavaType=="BigDecimal">
+<#elseif pkJavaType=="BigDecimal" || (tenantKeyJavaType?? && tenantKeyJavaType=="BigDecimal")>
 import java.math.BigDecimal;
 </#if>
 

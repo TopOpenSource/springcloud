@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +18,7 @@ import com.sdstc.model.Customer;
 import com.sdstc.model.Perm;
 import com.sdstc.model.Role;
 import com.sdstc.model.UserInfo;
+import com.sdstc.model.UserSecurity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			//获取角色
 			List<Role> roles=userDao.getRolesByUser(username,customerId);
 			for(Role role:roles) {
-				authorities.add(new SimpleGrantedAuthority(role.getCode()));
+				authorities.add(new SimpleGrantedAuthority(role.getCode()));  
+				
 			}
 			//获取权限
 			List<Perm> perms=userDao.getPermsByUser(username,customerId);
@@ -53,7 +54,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 				authorities.add(new SimpleGrantedAuthority(perm.getCode()));
 			}
 			//生成 springsecurity User
-			User user = new User(username,userInfo.getPwd(), authorities);
+			UserSecurity user = new UserSecurity(username,userInfo.getPwd(),customerId,authorities);
 			return user;
 		}else {
 			return null;

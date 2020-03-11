@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.PubFileRelationDao">
+	
+	<resultMap id="PubFileRelationMap" type="com.sdstc.system.model.PubFileRelation">
+	    <id column="id" property="id" />
+	    <result column="type" property="type" />
+	    <result column="file_id" property="fileId" />
+	    <result column="ref_id" property="refId" />
+	    <result column="customer_id" property="customerId" />
+	    <result column="gmt_create" property="gmtCreate" />
+	    <result column="gmt_modified" property="gmtModified" />
+	    <result column="create_account" property="createAccount" />
+	    <result column="modified_account" property="modifiedAccount" />
+	</resultMap>
+	
+    <sql id="PubFileRelationCols">
+      id,type,file_id,ref_id,customer_id,gmt_create,gmt_modified,create_account,modified_account
+    </sql>
+    
+    <sql id="PubFileRelationProps">
+      #{id},#{type},#{fileId},#{refId},#{customerId},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount}
+    </sql>
+    
+    <sql id="PubFileRelationWhere">
+      
+    </sql>
+    
+    <sql id="PubFileRelationDtoWhere">
+      
+    </sql>
+    
+	
+	<select id="selectByDto"  parameterType="com.sdstc.system.model.PubFileRelation" resultMap="PubFileRelationMap">
+		select
+			<include refid="PubFileRelationCols"></include>
+		from pub_file_relation
+		<where>
+		    <include refid="PubFileRelationWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectCountByDto"  parameterType="com.sdstc.system.model.PubFileRelation" resultType="Integer">
+		select
+			count(*)
+		from pub_file_relation
+		<where>
+		    <include refid="PubFileRelationWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectPageByDto" resultMap="PubFileRelationMap">
+		select
+			<include refid="PubFileRelationCols"></include>
+		from pub_file
+		<where>
+		    <include refid="PubFileRelationDtoWhere"></include>
+		</where>
+		limit #{pageDto.start},#{pageDto.pageSize}
+	</select>
+</mapper>

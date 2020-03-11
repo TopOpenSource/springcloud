@@ -1,17 +1,24 @@
 package com.sdstc.system.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sdstc.pub.dto.LoginUserInfo;
+import com.sdstc.system.service.Oauth2Service;
 
 
 @RestController
 @RequestMapping("/api/system/test")
 public class TestController {
+	@Autowired
+	private  Oauth2Service oauth2Service;
 	
 	@RequestMapping("testAdmin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String testAdmin() {
+		LoginUserInfo userInfo=oauth2Service.userInfo();
 		return "system-admin";
 	}
 	
