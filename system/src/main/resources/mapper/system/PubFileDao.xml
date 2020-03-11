@@ -23,4 +23,39 @@
       #{id},#{name},#{size},#{path},#{type},#{customerId},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount}
     </sql>
     
+    <sql id="PubFileWhere">
+      
+    </sql>
+    
+    <sql id="PubFileDtoWhere">
+      
+    </sql>
+    
+    <select id="selectByDto"  parameterType="com.sdstc.system.model.PubFile" resultMap="PubFileMap">
+		select
+			<include refid="PubFileCols"></include>
+		from pub_file
+		<where>
+		    <include refid="PubFileWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectCountByDto"  parameterType="com.sdstc.system.model.PubFile" resultType="Integer">
+		select
+			count(*)
+		from pub_file
+		<where>
+		    <include refid="PubFileWhere"></include>
+		</where>
+	</select>
+	
+	<select id="selectPageByDto" resultMap="PubFileMap">
+		select
+			<include refid="PubFileCols"></include>
+		from pub_file
+		<where>
+		    <include refid="PubFileDtoWhere"></include>
+		</where>
+		limit #{pageDto.start},${pageDto.pageSize}
+	</select>
 </mapper>

@@ -2,6 +2,7 @@ package ${serviceInterPackage};
 
 import java.util.List;
 import ${modelPackage}.${entityName};
+import com.sdstc.pub.dto.PageDto;
 <#if pkJavaType=="Date" || tenantKeyJavaType=="Date">
 import java.util.Date;
 <#elseif pkJavaType=="BigDecimal" || tenantKeyJavaType=="BigDecimal">
@@ -24,4 +25,6 @@ public interface ${entityName}Service {
 	${entityName} selectByPK(${pkJavaType} ${primaryKey}<#if hasTenant?string("true","false")== "true">,${tenantKeyJavaType} ${tenantKey}</#if>);
 
 	List<${entityName}> selectByDto(${entityName} dto);
+	
+	List<${entityName}> selectPageByDto(${entityName} dto,PageDto pageDto);
 }

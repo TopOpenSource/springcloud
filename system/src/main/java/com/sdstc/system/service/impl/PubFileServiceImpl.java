@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sdstc.system.dao.PubFileDao;
 import com.sdstc.system.model.PubFile;
 import com.sdstc.system.service.PubFileService;
+import com.sdstc.pub.dto.PageDto;
 
 /**
  * 
@@ -47,4 +48,13 @@ public class PubFileServiceImpl implements PubFileService{
 		return pubFileDao.selectByDto(dto);
 	}
 
+    @Override
+	public List<PubFile> selectPageByDto(PubFile dto, PageDto pageDto) {
+		pageDto.setCount(pubFileDao.selectCountByDto(dto));
+		if(pageDto.getCount()>0) {
+			return pubFileDao.selectPageByDto(dto, pageDto);
+		}else {
+			return null;
+		}
+	}
 }

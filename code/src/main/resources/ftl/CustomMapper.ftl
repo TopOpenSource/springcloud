@@ -20,4 +20,48 @@
       <#list cols as col>${"#{"+col.javaColumnName+"}"}<#if col_has_next>,</#if></#list>
     </sql>
     
+    <sql id="${entityName}Where">
+      
+    </sql>
+    
+    <sql id="${entityName}Where">
+      
+    </sql>
+    
+    <select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
+		select
+			<include refid="${entityName}Cols"></include>
+		from ${tableName}
+		<where>
+		    
+		</where>
+	</select>
+	
+	<select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
+		select
+			<include refid="${entityName}Cols"></include>
+		from ${tableName}
+		<where>
+		    <include refid="${entityName}Where"></include>
+		</where>
+	</select>
+	
+	<select id="selectCountByDto"  parameterType="${modelPackage}.${entityName}" resultType="Integer">
+		select
+			count(*)
+		from ${tableName}
+		<where>
+		    <include refid="${entityName}Where"></include>
+		</where>
+	</select>
+	
+	<select id="selectPageByDto" resultMap="${entityName}Map">
+		select
+			<include refid="${entityName}Cols"></include>
+		from pub_file
+		<where>
+		    <include refid="${entityName}DtoWhere"></include>
+		</where>
+		limit ${"#{pageDto.start}"},${"#{pageDto.pageSize}"}
+	</select>
 </mapper>

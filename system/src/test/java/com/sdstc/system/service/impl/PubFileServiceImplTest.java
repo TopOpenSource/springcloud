@@ -1,8 +1,7 @@
 package com.sdstc.system.service.impl;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sdstc.SystemStart;
+import com.sdstc.pub.dto.PageDto;
 import com.sdstc.pub.snowflake.SnowflakeIdWorker;
 import com.sdstc.system.model.PubFile;
 import com.sdstc.system.service.PubFileService;
@@ -67,6 +67,18 @@ class PubFileServiceImplTest {
 	void testSelectByPK() {
 		PubFile dto= pubFileService.selectByPK(687285058712633344L, 687285058712633345L);
 		System.out.println(dto.getPath());
+	}
+	
+	@Test
+	void selectPageByDto() {
+		PubFile dto=new PubFile();
+		PageDto pageDto=new PageDto();
+		pageDto.setPageSize(2);
+		pageDto.setPage(2);
+		
+		List<PubFile> pubFiles=pubFileService.selectPageByDto(dto, pageDto);
+		System.out.println();
+		
 	}
 
 }

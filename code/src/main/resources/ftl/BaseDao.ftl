@@ -1,6 +1,6 @@
 package ${baseDaoPackage};
 
-import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import ${modelPackage}.${entityName};
 <#if pkJavaType=="Date" || tenantKeyJavaType=="Date">
@@ -16,6 +16,5 @@ public interface ${entityName}BaseDao {
    void  updateSelectiveByPK(${entityName} dto);
    void  deleteByPK(@Param("${primaryKey}") ${pkJavaType} ${primaryKey}<#if hasTenant?string("true","false")== "true">,@Param("${tenantKey}") ${tenantKeyJavaType} ${tenantKey}</#if>);
    ${entityName}  selectByPK(@Param("${primaryKey}") ${pkJavaType} ${primaryKey}<#if hasTenant?string("true","false")== "true">,@Param("${tenantKey}") ${tenantKeyJavaType} ${tenantKey}</#if>);
-   List<${entityName}> selectByDto(${entityName} dto);
    
 }

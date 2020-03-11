@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ${customDaoPackage}.${entityName}Dao;
 import ${modelPackage}.${entityName};
 import ${serviceInterPackage}.${entityName}Service;
+import com.sdstc.pub.dto.PageDto;
 
 /**
  * 
@@ -47,4 +48,13 @@ public class ${entityName}ServiceImpl implements ${entityName}Service{
 		return ${entityNameLowerCase}Dao.selectByDto(dto);
 	}
 
+    @Override
+	public List<${entityName}> selectPageByDto(${entityName} dto, PageDto pageDto) {
+		pageDto.setCount(${entityNameLowerCase}Dao.selectCountByDto(dto));
+		if(pageDto.getCount()> 0) {
+			return ${entityNameLowerCase}Dao.selectPageByDto(dto, pageDto);
+		}else {
+			return null;
+		}
+	}
 }

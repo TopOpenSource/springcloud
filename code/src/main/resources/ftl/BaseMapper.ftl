@@ -101,12 +101,4 @@
 		</where> 
 	</select>
 	
-	<select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
-		select
-			<include refid="${entityName}Cols"></include>
-		from ${tableName}
-		<where>
-		    
-		</where>
-	</select>
 </mapper>
