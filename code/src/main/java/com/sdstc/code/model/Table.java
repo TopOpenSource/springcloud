@@ -16,14 +16,18 @@ public class Table {
 	// 主键
 	private String primaryKey;
 	private String sqlPk;
+	private String pkJavaType;
 	// 租户键
 	// 是否包含租户字段
 	private Boolean hasTenant;
 	private String tenantKey;
 	private String sqlTenantKey;
+	private String tenantKeyJavaType;
 
 	// 实体名
 	private String entityName;
+	private String entityNameLowerCase;
+	
 	// 表名
 	private String tableName;
 	

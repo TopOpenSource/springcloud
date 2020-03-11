@@ -6,6 +6,8 @@ import com.sdstc.code.utils.TableUtil;
 import com.sdstc.code.utils.freemarker.GeDao;
 import com.sdstc.code.utils.freemarker.GeMapperXml;
 import com.sdstc.code.utils.freemarker.GeModel;
+import com.sdstc.code.utils.freemarker.GeService;
+import com.sdstc.code.utils.freemarker.GeServiceImpl;
 
 public class CodeStart {
 	public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class CodeStart {
 		String servicePackage="com.sdstc.system.service.impl";
 		
 		// xml路径
-		String xmlPackage = "resources/system";
+		String xmlPackage = "resources/mapper/system";
 
 		// 数据源 不可为空
 		String jdbcUrl = "172.16.200.12:30686";
@@ -31,7 +33,7 @@ public class CodeStart {
 		String tableName = "pub_file";
 
 		Mybatis mybatis = new Mybatis(jdbcUrl, scheme, userName, pwd, tableName);
-		Table table = TableUtil.parseTable(tableName, mybatis.getColumns(), daoPackage, modelPackage, xmlPackage);
+		Table table = TableUtil.parseTable(tableName, mybatis.getColumns(), daoPackage, modelPackage, xmlPackage,serviceInterPackage,servicePackage);
 
 		GeDao geDao = new GeDao();
 		geDao.proccess(table,basePath);
@@ -39,6 +41,11 @@ public class CodeStart {
 		geMapper.proccess(table,basePath);
 		GeModel geModel = new GeModel();
         geModel.proccess(table,basePath);
+        GeService geService=new GeService();
+        geService.proccess(table, basePath);
+        GeServiceImpl geServiceImpl=new GeServiceImpl();
+        geServiceImpl.proccess(table, basePath);
+        
 	}
 
 }

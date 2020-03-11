@@ -59,6 +59,11 @@ public class Params {
 		 return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 	
+	//首字母小写
+		public static String firestLowerCase(String str) {
+			 return str.substring(0, 1).toLowerCase() + str.substring(1);
+		}
+	
 	
 	public static String parsePackage2Path(String packageName) {
 		return packageName.replace(".", fileSeq);	

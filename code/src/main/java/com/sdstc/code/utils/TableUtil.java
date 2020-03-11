@@ -10,16 +10,25 @@ public class TableUtil {
 
 	}
 
-	public static Table parseTable(String tableName, List<Column> sqlCols, String daoPackage, String modelPackage, String xmlPackage) {
+	public static Table parseTable(String tableName, List<Column> sqlCols, String daoPackage, String modelPackage, String xmlPackage,String serviceInterPackage,String servicePackage) {
 		Table table = new Table();
 		table.setTableName(tableName);
 		table.setEntityName(Params.firestUpperCase(Params.underlineToCamel(tableName)));
-
+        table.setEntityNameLowerCase(Params.firestLowerCase(table.getEntityName()));
+        
 		table.setXmlPath(xmlPackage);
+		
 		table.setModelPath(Params.parsePackage2Path(modelPackage));
 		table.setModelPackage(modelPackage);
+		
 		table.setDaoPath(Params.parsePackage2Path(daoPackage));
 		table.setDaoPackage(daoPackage);
+		
+		table.setServicePath(Params.parsePackage2Path(servicePackage));
+		table.setServicePackage(servicePackage);
+		
+		table.setServiceInterPath(Params.parsePackage2Path(serviceInterPackage));
+		table.setServiceInterPackage(serviceInterPackage);
 		
 		
 		Boolean hasDate = false;
@@ -28,8 +37,11 @@ public class TableUtil {
 		Boolean hasTenant = false;
 		String tenantKey = null;
 		String sqlTenantKey = null;
+		String tenantKeyJavaType=null;
+		
 		String primaryKey = null;
 		String sqlPk = null;
+		String pkJavaType=null;
 
 		for (Column sqlCol : sqlCols) {
 			Column col = parseCol(sqlCol);
@@ -45,11 +57,13 @@ public class TableUtil {
 				hasTenant = true;
 				tenantKey=col.getJavaColumnName();
 				sqlTenantKey=col.getColumnName();
+				tenantKeyJavaType=col.getJavaDataType();
 			}
 
 			if (col.getIsPK()!=null && col.getIsPK()) {
 				primaryKey = col.getJavaColumnName();
 				sqlPk=col.getColumnName();
+				pkJavaType=col.getJavaDataType();
 			}
 
 			table.addCol(col);
@@ -62,9 +76,11 @@ public class TableUtil {
 		table.setHasTenant(hasTenant);
 		table.setTenantKey(tenantKey);
 		table.setSqlTenantKey(sqlTenantKey);
+		table.setTenantKeyJavaType(tenantKeyJavaType);
 		
 		table.setPrimaryKey(primaryKey);
 		table.setSqlPk(sqlPk);
+		table.setPkJavaType(pkJavaType);
 		
 		return table;
 	}

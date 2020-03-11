@@ -52,9 +52,8 @@
 		</set>
 		<where>
 		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
-		  <#--存在租户-->
 		  <#if hasTenant?string("true","false")== "true">
-		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
 		  </#if>
 		</where> 
 	</update>
@@ -85,7 +84,7 @@
 		<where>
 		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
 		  <#if hasTenant?string("true","false")== "true">
-		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
 		  </#if>
 		</where> 
 	</delete>
@@ -97,7 +96,7 @@
 		<where>
 		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
 		  <#if hasTenant?string("true","false")== "true">
-		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
 		  </#if>
 		</where> 
 	</select>
