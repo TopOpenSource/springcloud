@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 public class ${entityName} extends BaseModel {
 <#list cols as col>
  <#if col.isParentCol?string("true","false")== "false">
+    /**
+	 * ${col.columnComment}
+	 */
     private ${col.javaDataType} ${col.javaColumnName};
  </#if>
 </#list>
