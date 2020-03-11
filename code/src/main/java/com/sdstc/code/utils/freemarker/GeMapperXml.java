@@ -1,6 +1,7 @@
 package com.sdstc.code.utils.freemarker;
 
 import com.sdstc.code.model.Table;
+import com.sdstc.code.utils.Params;
 
 /**
  * 生成mapperxml文件
@@ -9,10 +10,9 @@ import com.sdstc.code.model.Table;
  */
 public class GeMapperXml extends Generator{
 
-	@Override
-	protected void proccess(Table table) {
+	public void proccess(Table table,String basePath) {
 		try {
-			super.genarator(table, table.getXmlPath(), "ftl/Mapper.ftl");
+			super.genarator(table, basePath+table.getXmlPath(),table.getEntityName()+"Dao.xml","ftl/Mapper.ftl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

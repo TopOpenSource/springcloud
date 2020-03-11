@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 
-import com.sdstc.code.model.Table;
+import com.sdstc.code.utils.Params;
 
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -13,14 +13,17 @@ import freemarker.template.Template;
 
 public abstract class Generator {
 
-	protected abstract void proccess(Table table);
-
-	public void genarator(Object table, String outPath, String ftlPath) throws Exception {
+	public void genarator(Object table, String outPath,String fileName,String ftlPath) throws Exception {
+		File path=new File(outPath);
+		if(!path.exists()) {
+			path.mkdirs();
+		}
+		
 		Configuration configuration = new Configuration(Configuration.getVersion());
 		TemplateLoader ctl = new ClassTemplateLoader(GeDao.class, "/");
 		configuration.setTemplateLoader(ctl);
 		Template template = configuration.getTemplate(ftlPath);
-		Writer out = new FileWriter(new File(outPath));
+		Writer out = new FileWriter(new File(outPath+Params.fileSeq+fileName));
 		template.process(table, out);
 		out.close();
 	}

@@ -10,10 +10,9 @@ import com.sdstc.code.model.Table;
  */
 public class GeModel extends Generator {
 
-	@Override
-	protected void proccess(Table table) {
+	public void proccess(Table table,String basePath) {
 		try {
-			super.genarator(table, table.getModelPath(), "ftl/Model.ftl");
+			super.genarator(table,basePath+table.getModelPath(),table.getEntityName()+".java", "ftl/Model.ftl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

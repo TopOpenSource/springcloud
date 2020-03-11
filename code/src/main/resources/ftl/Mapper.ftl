@@ -1,62 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sdstc.system.dao.CustomerDao">
+<mapper namespace="${daoPackage}.${entityName}Dao">
 	
-	<resultMap id="CustomerMap" type="com.sdstc.system.model.Customer">
-		<id column="id" property="id" />
-		<result column="gmt_create" property="gmtCreate" />
+	<resultMap id="${entityName}Map" type="${modelPackage}.${entityName}">
+	<#list cols as col>
+	  <#if col.isPK?string("true","false")== "true">	
+	    <id column="${col.columnName}" property="${col.javaColumnName}" />
+	  <#else>
+	    <result column="${col.columnName}" property="${col.javaColumnName}" />
+	  </#if>
+	</#list>
 	</resultMap>
 	
-    <sql id="CustomerCols">
-        id,gmt_create,gmt_modified,create_account,modified_account,name,no,phone,email,card_image_id,address,register_date,state,pay_state,expiry_date
+    <sql id="${entityName}Cols">
+      <#list cols as col>${col.columnName}<#if col_has_next>,</#if></#list>
     </sql>
     
-    <sql id="CustomerProps">
-        #{id},#{gmtCreate}
+    <sql id="${entityName}Props">
+      <#list cols as col>${"#{"+col.javaColumnName+"}"}<#if col_has_next>,</#if></#list>
     </sql>
     
-    <insert id="insert" parameterType="com.sdstc.system.model.Customer">
-        insert into sys_customer
-        (<include refid="CustomerCols"></include>)
+    <insert id="insert" parameterType="${modelPackage}.${entityName}">
+        insert into ${tableName}
+        (<include refid="${entityName}Cols"></include>)
         values
-        (<include refid="CustomerProps"></include>)
+        (<include refid="${entityName}Props"></include>)
     </insert>
         
-    <update id="updateSelectiveByPK" parameterType="com.sdstc.project.model.Project">
-		update project
+    <update id="updateSelectiveByPK" parameterType="${modelPackage}.${entityName}">
+		update ${tableName}
 		<set>
-            <if test="payComplete != null and payComplete != ''">
-		        pay_complete = #{payComplete},
+		<#-- 遍历属性-->
+		<#list cols as col>
+		 <#-- 属性不是主键-->
+		 <#if col.javaColumnName != primaryKey>
+		 <#-- 属性不是租户键-->
+		  <#if tenantKey?? || col.javaColumnName != tenantKey>
+		  <#-- 属性为字符串类型-->
+	      <#if col.javaDataType=="String">
+	        <if test="${col.javaColumnName} != null and ${col.javaColumnName} != ''">
+		        ${col.columnName} = ${"#{"+col.javaColumnName+"}"},
 		    </if>
-		    <if test='keyState != null'>
-               key_state = #{keyState},
-            </if>
+	      <#else>
+	        <if test="${col.javaColumnName} != null">
+		        ${col.columnName} = ${"#{"+col.javaColumnName+"}"},
+		    </if>
+	      </#if>
+	      </#if> 
+	     </#if> 
+		</#list>    
 		</set>
-		where id = #{id} and tenant_id = #{tenantId}
+		<where>
+		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
+		  <#--存在租户-->
+		  <#if hasTenant?string("true","false")== "true">
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  </#if>
+		</where> 
 	</update>
 	
-	<update id="updateByPK" parameterType="com.sdstc.project.model.Project">
-		update project
-		set project_name=#{projectName},
-		where id = #{id} and tenant_id = #{tenantId}
+	<update id="updateByPK" parameterType="${modelPackage}.${entityName}">
+		update ${tableName}
+		<set>
+	<#list cols as col>
+    <#-- 属性不是主键-->
+	 <#if col.javaColumnName != primaryKey>
+	 <#-- 属性不是租户键-->
+	  <#if tenantKey?? || col.javaColumnName != tenantKey>
+	    ${col.columnName} = ${"#{"+col.javaColumnName+"}"},
+	  </#if>
+	 </#if>  
+	</#list>	  
+		</set>
+		<where>
+		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
+		  <#if hasTenant?string("true","false")== "true">
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  </#if>
+		</where> 
 	</update>
 	
 	<delete id="deleteByPK">
-		delete from project
-		where id = #{id} and tenant_id = #{tenantId}
+		delete from ${tableName}
+		<where>
+		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
+		  <#if hasTenant?string("true","false")== "true">
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  </#if>
+		</where> 
 	</delete>
 	
-	<select id="selectByPK" resultMap="CustomerMap">
+	<select id="selectByPK" resultMap="${entityName}Map">
 		select
 			<include refid="CustomerCols"></include>
-		from project
-		where id = #{id} and tenant_id = #{tenantId}
+		from ${tableName}
+		<where>
+		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
+		  <#if hasTenant?string("true","false")== "true">
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"} 
+		  </#if>
+		</where> 
 	</select>
 	
-	<select id="selectByDto"  parameterType="com.sdstc.project.model.Project" resultMap="CustomerMap">
+	<select id="selectByDto"  parameterType="${modelPackage}.${entityName}" resultMap="${entityName}Map">
 		select
-			<include refid="CustomerCols"></include>
-		from project
+			<include refid="${entityName}Cols"></include>
+		from ${tableName}
 		<where>
 		    
 		</where>

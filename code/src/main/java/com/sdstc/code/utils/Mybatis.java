@@ -23,7 +23,7 @@ public class Mybatis {
 	private String pwd;
 	private String tableName;
 
-	private Mybatis(String jdbcUrl,String scheme,String userName, String pwd, String tableName) {
+	public Mybatis(String jdbcUrl,String scheme,String userName, String pwd, String tableName) {
 		this.jdbcUrl = jdbcUrl;
 		this.userName = userName;
 		this.pwd = pwd;

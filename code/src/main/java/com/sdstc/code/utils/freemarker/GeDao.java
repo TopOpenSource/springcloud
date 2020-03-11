@@ -1,6 +1,7 @@
 package com.sdstc.code.utils.freemarker;
 
 import com.sdstc.code.model.Table;
+import com.sdstc.code.utils.Params;
 
 /**
  * 生成dao
@@ -10,17 +11,12 @@ import com.sdstc.code.model.Table;
  */
 public class GeDao extends Generator {
     
-	@Override
-	protected void proccess(Table table) {
+	public void proccess(Table table,String basePath) {
+		
 		try {
-			super.genarator(table, table.getDaoPath(), "ftl/Dao.ftl");
+			super.genarator(table,basePath+table.getDaoPath(),table.getEntityName()+"Dao.java", "ftl/Dao.ftl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		GeDao geDao=new GeDao();
-		geDao.proccess(new Table());
 	}
 }
