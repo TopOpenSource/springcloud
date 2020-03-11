@@ -1,4 +1,4 @@
-package com.sdstc.system.service;
+package com.sdstc.oauth.service;
 
 import org.springframework.stereotype.Component;
 import com.sdstc.pub.dto.LoginUserInfo;

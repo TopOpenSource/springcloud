@@ -5,8 +5,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sdstc.oauth.service.Oauth2Service;
 import com.sdstc.pub.dto.LoginUserInfo;
-import com.sdstc.system.service.Oauth2Service;
 
 
 @RestController

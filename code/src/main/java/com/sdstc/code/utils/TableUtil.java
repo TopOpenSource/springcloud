@@ -10,8 +10,9 @@ public class TableUtil {
 
 	}
 
-	public static Table parseTable(String tableName, List<Column> sqlCols, String daoPackage, String modelPackage, String xmlPackage,String serviceInterPackage,String servicePackage) {
+	public static Table parseTable(String tableName, List<Column> sqlCols,String serviceName,String daoPackage, String modelPackage, String xmlPackage,String serviceInterPackage,String servicePackage,String controllerPackage) {
 		Table table = new Table();
+		table.setServiceName(serviceName);
 		table.setTableName(tableName);
 		table.setEntityName(Params.firestUpperCase(Params.underlineToCamel(tableName)));
         table.setEntityNameLowerCase(Params.firestLowerCase(table.getEntityName()));
@@ -36,6 +37,8 @@ public class TableUtil {
 		table.setServiceInterPath(Params.parsePackage2Path(serviceInterPackage));
 		table.setServiceInterPackage(serviceInterPackage);
 		
+		table.setControllerPath(Params.parsePackage2Path(controllerPackage));
+		table.setControllerPackage(controllerPackage);
 		
 		Boolean hasDate = false;
 		Boolean hasBigDecimal=false;
