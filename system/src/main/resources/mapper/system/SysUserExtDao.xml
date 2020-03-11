@@ -31,7 +31,6 @@
     <sql id="SysUserExtDtoWhere">
       
     </sql>
-    
 	
 	<select id="selectByDto"  parameterType="com.sdstc.system.model.SysUserExt" resultMap="SysUserExtMap">
 		select
