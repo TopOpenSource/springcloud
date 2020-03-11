@@ -3,8 +3,10 @@ package com.sdstc.code;
 import com.sdstc.code.model.Table;
 import com.sdstc.code.utils.Mybatis;
 import com.sdstc.code.utils.TableUtil;
-import com.sdstc.code.utils.freemarker.GeDao;
-import com.sdstc.code.utils.freemarker.GeMapperXml;
+import com.sdstc.code.utils.freemarker.GeBaseDao;
+import com.sdstc.code.utils.freemarker.GeBaseMapper;
+import com.sdstc.code.utils.freemarker.GeCustomDao;
+import com.sdstc.code.utils.freemarker.GeCustomMapper;
 import com.sdstc.code.utils.freemarker.GeModel;
 import com.sdstc.code.utils.freemarker.GeService;
 import com.sdstc.code.utils.freemarker.GeServiceImpl;
@@ -35,10 +37,16 @@ public class CodeStart {
 		Mybatis mybatis = new Mybatis(jdbcUrl, scheme, userName, pwd, tableName);
 		Table table = TableUtil.parseTable(tableName, mybatis.getColumns(), daoPackage, modelPackage, xmlPackage,serviceInterPackage,servicePackage);
 
-		GeDao geDao = new GeDao();
+		GeBaseDao geDao = new GeBaseDao();
 		geDao.proccess(table,basePath);
-		GeMapperXml geMapper = new GeMapperXml();
+		GeCustomDao geCustomDao=new GeCustomDao();
+		geCustomDao.proccess(table, basePath);
+		
+		GeBaseMapper geMapper = new GeBaseMapper();
 		geMapper.proccess(table,basePath);
+		GeCustomMapper geCustomMapper=new GeCustomMapper();
+		geCustomMapper.proccess(table, basePath);
+		
 		GeModel geModel = new GeModel();
         geModel.proccess(table,basePath);
         GeService geService=new GeService();

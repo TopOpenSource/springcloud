@@ -16,13 +16,19 @@ public class TableUtil {
 		table.setEntityName(Params.firestUpperCase(Params.underlineToCamel(tableName)));
         table.setEntityNameLowerCase(Params.firestLowerCase(table.getEntityName()));
         
-		table.setXmlPath(xmlPackage);
+        table.setBaseXmlPath(xmlPackage+Params.fileSeq+"base");
+		table.setCustomXmlPath(xmlPackage);
 		
 		table.setModelPath(Params.parsePackage2Path(modelPackage));
 		table.setModelPackage(modelPackage);
 		
-		table.setDaoPath(Params.parsePackage2Path(daoPackage));
-		table.setDaoPackage(daoPackage);
+		
+		table.setBaseDaoPath(Params.parsePackage2Path(daoPackage+".base"));
+		table.setBaseDaoPackage(daoPackage+".base");
+		
+		table.setCustomDaoPath(Params.parsePackage2Path(daoPackage));
+		table.setCustomDaoPackage(daoPackage);
+		
 		
 		table.setServicePath(Params.parsePackage2Path(servicePackage));
 		table.setServicePackage(servicePackage);

@@ -32,8 +32,12 @@ public class Table {
 	private String tableName;
 	
 	// dao路径
-	private String daoPackage;
-	private String daoPath;
+	private String baseDaoPackage;
+	private String baseDaoPath;
+	
+	private String customDaoPackage;
+	private String customDaoPath;
+	
 	// model路径
 	private String modelPackage;
 	private String modelPath;
@@ -45,7 +49,8 @@ public class Table {
 	private String servicePath;
 	
 	// xml路径
-	private String xmlPath;
+	private String baseXmlPath;
+	private String customXmlPath;
 
 	private List<Column> cols;
 

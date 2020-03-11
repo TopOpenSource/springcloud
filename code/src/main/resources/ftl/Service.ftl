@@ -3,7 +3,7 @@ package ${servicePackage};
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ${daoPackage}.${entityName}Dao;
+import ${customDaoPackage}.${entityName}Dao;
 import ${modelPackage}.${entityName};
 import ${serviceInterPackage}.${entityName}Service;
 

@@ -20,7 +20,7 @@ public abstract class Generator {
 		}
 		
 		Configuration configuration = new Configuration(Configuration.getVersion());
-		TemplateLoader ctl = new ClassTemplateLoader(GeDao.class, "/");
+		TemplateLoader ctl = new ClassTemplateLoader(GeBaseDao.class, "/");
 		configuration.setTemplateLoader(ctl);
 		Template template = configuration.getTemplate(ftlPath);
 		Writer out = new FileWriter(new File(outPath+Params.fileSeq+fileName));

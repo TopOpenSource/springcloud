@@ -1,4 +1,4 @@
-package ${daoPackage};
+package ${baseDaoPackage};
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 </#if>
 
 
-public interface ${entityName}Dao {
+public interface ${entityName}BaseDao {
    void  insert(${entityName} dto);
    void  updateByPK(${entityName} dto);
    void  updateSelectiveByPK(${entityName} dto);

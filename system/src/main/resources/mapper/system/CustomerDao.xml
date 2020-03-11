@@ -19,7 +19,7 @@
 		<result column="expiry_date" property="expiryDate" />
 	</resultMap>
 	
-	<resultMap id="CustomerStateMap" type="com.sdstc.system.model.CustomerState">
+	<resultMap id="CustomerStateMap" type="com.sdstc.system.model.CustomerExt">
 		<id column="id" property="id" />
 		<result column="gmt_create" property="gmtCreate" />
 		<result column="gmt_modified" property="gmtModified" />
@@ -53,7 +53,7 @@
         (<include refid="CustomerProps"></include>)
     </insert>
     
-    <insert id="insertCustomerState" parameterType="com.sdstc.system.model.CustomerState">
+    <insert id="insertCustomerState" parameterType="com.sdstc.system.model.CustomerExt">
         insert into sys_customer_state
         (<include refid="CustomerStateCols"></include>)
         values
