@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sdstc.project.service.Oauth2Service;
+import com.sdstc.oauth.service.Oauth2Service;
 import com.sdstc.project.service.SystemService;
 import com.sdstc.pub.dto.LoginUserInfo;
 

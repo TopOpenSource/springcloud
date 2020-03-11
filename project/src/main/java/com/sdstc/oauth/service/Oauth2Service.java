@@ -1,4 +1,4 @@
-package com.sdstc.project.service;
+package com.sdstc.oauth.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

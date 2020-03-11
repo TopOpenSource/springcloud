@@ -31,7 +31,6 @@
     <sql id="PubMessageDtoWhere">
       
     </sql>
-    
 	
 	<select id="selectByDto"  parameterType="com.sdstc.system.model.PubMessage" resultMap="PubMessageMap">
 		select

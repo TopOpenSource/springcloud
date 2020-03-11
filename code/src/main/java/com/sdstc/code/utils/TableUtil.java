@@ -86,6 +86,7 @@ public class TableUtil {
 		table.setTenantKey(tenantKey);
 		table.setSqlTenantKey(sqlTenantKey);
 		table.setTenantKeyJavaType(tenantKeyJavaType);
+		table.setTenantKeyUpperCase(Params.firestUpperCase(table.getTenantKey()));
 		
 		table.setPrimaryKey(primaryKey);
 		table.setSqlPk(sqlPk);
