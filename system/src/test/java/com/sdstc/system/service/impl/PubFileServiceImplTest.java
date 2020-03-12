@@ -71,13 +71,7 @@ class PubFileServiceImplTest {
 	
 	@Test
 	void selectPageByDto() {
-		PubFile dto=new PubFile();
-		PageDto pageDto=new PageDto();
-		pageDto.setPageSize(2);
-		pageDto.setPage(2);
 		
-		List<PubFile> pubFiles=pubFileService.selectPageByDto(dto, pageDto);
-		System.out.println();
 		
 	}
 

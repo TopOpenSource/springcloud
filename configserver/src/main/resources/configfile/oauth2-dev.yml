@@ -38,9 +38,9 @@ mybatis:
     
 oauth2:
   #token有效期
-  accessTokenValiditySeconds: 180
+  accessTokenValiditySeconds: 1800
   #token刷新有效期
-  refreshTokenValiditySeconds: 300
+  refreshTokenValiditySeconds: 3000
   signingKey: qwe123-=
   #token类型 支持 beare 和 jwt
   tokenType: bearer

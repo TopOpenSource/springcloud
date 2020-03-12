@@ -30,8 +30,8 @@
     <sql id="PubFileDtoWhere">
       
     </sql>
-    
-    <select id="selectByDto"  parameterType="com.sdstc.system.model.PubFile" resultMap="PubFileMap">
+	
+	<select id="selectByDto"  parameterType="com.sdstc.system.model.PubFile" resultMap="PubFileMap">
 		select
 			<include refid="PubFileCols"></include>
 		from pub_file
@@ -56,6 +56,6 @@
 		<where>
 		    <include refid="PubFileDtoWhere"></include>
 		</where>
-		limit #{pageDto.start},${pageDto.pageSize}
+		limit #{pageDto.start},#{pageDto.pageSize}
 	</select>
 </mapper>

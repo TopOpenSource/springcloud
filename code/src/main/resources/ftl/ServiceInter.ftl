@@ -3,6 +3,7 @@ package ${serviceInterPackage};
 import java.util.List;
 import ${modelPackage}.${entityName};
 import com.sdstc.pub.dto.PageDto;
+import com.sdstc.pub.dto.PageResult;
 <#if pkJavaType=="Date" || (tenantKeyJavaType?? && tenantKeyJavaType=="Date")>
 import java.util.Date;
 <#elseif pkJavaType=="BigDecimal" || (tenantKeyJavaType?? && tenantKeyJavaType=="BigDecimal")>
@@ -26,5 +27,5 @@ public interface ${entityName}Service {
 
 	List<${entityName}> selectByDto(${entityName} dto);
 	
-	List<${entityName}> selectPageByDto(${entityName} dto,PageDto pageDto);
+	PageResult<${entityName}> selectPageByDto(${entityName} dto,PageDto pageDto);
 }

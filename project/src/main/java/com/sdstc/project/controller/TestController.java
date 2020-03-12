@@ -1,6 +1,7 @@
 package com.sdstc.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -21,9 +22,14 @@ public class TestController {
 	@Autowired
 	private  Oauth2Service oauth2Service;
 	
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
     @RequestMapping("testAdmin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
     public String testAdmin() {
+    	Integer x=discoveryClient.getOrder();
+    	
     	LoginUserInfo userInfo=oauth2Service.userInfo();
     	/**
     	SecurityContext securityContext = SecurityContextHolder.getContext();

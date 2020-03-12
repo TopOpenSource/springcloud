@@ -6,22 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sdstc.pub.dto.PageDto;
+import com.sdstc.pub.dto.PageResult;
 import com.sdstc.pub.dto.ResultDto;
 import ${modelPackage}.${entityName};
+import com.sdstc.oauth.service.Oauth2Service;
 import ${serviceInterPackage}.${entityName}Service;
+import com.sdstc.pub.dto.LoginUserInfo;
+
 
 @RestController
 @RequestMapping("/api/${serviceName}/${entityNameLowerCase}")
 public class ${entityName}Controller {
 	@Autowired
 	private ${entityName}Service ${entityNameLowerCase}Service;
+	@Autowired
+	private  Oauth2Service oauth2Service;
 	
 	@RequestMapping("insert")
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	public ResultDto insert(${entityName} dto) {
 		ResultDto resultDto=new ResultDto(1,"");
+		LoginUserInfo loginUser=oauth2Service.userInfo();
+		dto.setCreateAccount(loginUser.getUserAccount());
+		
 		${entityNameLowerCase}Service.insert(dto);
 		return resultDto;
 	}
@@ -30,6 +38,9 @@ public class ${entityName}Controller {
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	public ResultDto updateByPK(${entityName} dto) {
 		ResultDto resultDto=new ResultDto(1,"");
+		LoginUserInfo loginUser=oauth2Service.userInfo();
+		dto.setModifiedAccount(loginUser.getUserAccount());
+		
 		${entityNameLowerCase}Service.updateByPK(dto);
 		return resultDto;
 	}
@@ -38,6 +49,9 @@ public class ${entityName}Controller {
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	public ResultDto updateSelectiveByPK(${entityName} dto) {
 		ResultDto resultDto=new ResultDto(1,"");
+		LoginUserInfo loginUser=oauth2Service.userInfo();
+		dto.setModifiedAccount(loginUser.getUserAccount());
+		
 		${entityNameLowerCase}Service.updateSelectiveByPK(dto);
 		return resultDto;
 	}
@@ -64,7 +78,7 @@ public class ${entityName}Controller {
 	
 	@RequestMapping("selectPageByDto")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public List<${entityName}> selectPageByDto(${entityName} dto,PageDto pageDto) {
+	public PageResult<${entityName}> selectPageByDto(${entityName} dto,PageDto pageDto) {
 		return ${entityNameLowerCase}Service.selectPageByDto(dto,pageDto);
 	}
 }

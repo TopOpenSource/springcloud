@@ -1,9 +1,14 @@
 package com.sdstc.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +32,11 @@ public class TokenController {
 
 	@Value("${oauth2.signingKey}")
 	private  String signingKey;
+	
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
+	private Map<String,Integer> hosts=new HashMap<String,Integer>();
 	
 	@RequestMapping("admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -64,6 +74,25 @@ public class TokenController {
 		consumerTokenServices.revokeToken(details.getTokenValue());
 		
 		return true;
+	}
+	
+	@RequestMapping("getWorkerId")
+	public Long getWorkId(String host) {
+		if(!hosts.containsKey(host)) {
+			hosts.clear();
+			int i=0;
+			List<String> services=discoveryClient.getServices();
+			for(String service:services) {
+				List<ServiceInstance> instances=discoveryClient.getInstances(service);
+				for(ServiceInstance instance:instances) {
+					String hostName=instance.getHost();
+					if(!hosts.containsKey(hostName)) {
+						hosts.put(hostName, i++);
+					}
+				}
+			}
+		}
+		return hosts.get(host).longValue();
 	}
 
 }

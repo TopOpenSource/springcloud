@@ -11,5 +11,9 @@ public class Oauth2ServiceHystric implements Oauth2Service {
 		return null;
 	}
 
+	@Override
+	public Long getWorkerId(String host) {
+		return 0L;
+	}
 
 }

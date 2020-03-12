@@ -3,6 +3,7 @@ package com.sdstc.system.service;
 import java.util.List;
 import com.sdstc.system.model.PubFile;
 import com.sdstc.pub.dto.PageDto;
+import com.sdstc.pub.dto.PageResult;
 /**
  * 
  * @author
@@ -21,5 +22,5 @@ public interface PubFileService {
 
 	List<PubFile> selectByDto(PubFile dto);
 	
-	List<PubFile> selectPageByDto(PubFile dto,PageDto pageDto);
+	PageResult<PubFile> selectPageByDto(PubFile dto,PageDto pageDto);
 }

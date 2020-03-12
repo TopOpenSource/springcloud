@@ -1,5 +1,6 @@
 package ${servicePackage};
 
+import com.sdstc.oauth.service.Snowflake;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,29 +8,45 @@ import ${customDaoPackage}.${entityName}Dao;
 import ${modelPackage}.${entityName};
 import ${serviceInterPackage}.${entityName}Service;
 import com.sdstc.pub.dto.PageDto;
-
+import com.sdstc.pub.dto.PageResult;
+import java.util.Date;
+import lombok.extern.log4j.Log4j2;
 /**
  * 
  * @author 
  *
  */
 @Service("${entityNameLowerCase}Service")
+@Log4j2
 public class ${entityName}ServiceImpl implements ${entityName}Service{
+    @Autowired
+    private Snowflake snowflake;
+    
     @Autowired
 	private ${entityName}Dao ${entityNameLowerCase}Dao;
     
 	@Override
 	public void insert(${entityName} dto) {
+	    Date now=new Date();
+	    dto.setId(snowflake.getId());
+	    dto.setGmtCreate(now);
+	    
 		${entityNameLowerCase}Dao.insert(dto);
 	}
 
 	@Override
 	public void updateByPK(${entityName} dto) {
+	    Date now=new Date();
+		dto.setGmtModified(now);
+		
 		${entityNameLowerCase}Dao.updateByPK(dto);
 	}
 
 	@Override
 	public void updateSelectiveByPK(${entityName} dto) {
+	    Date now=new Date();
+		dto.setGmtModified(now);
+		
 		${entityNameLowerCase}Dao.updateSelectiveByPK(dto);
 	}
 
@@ -49,12 +66,13 @@ public class ${entityName}ServiceImpl implements ${entityName}Service{
 	}
 
     @Override
-	public List<${entityName}> selectPageByDto(${entityName} dto, PageDto pageDto) {
-		pageDto.setCount(${entityNameLowerCase}Dao.selectCountByDto(dto));
+	public PageResult<${entityName}> selectPageByDto(${entityName} dto, PageDto pageDto) {
+	    pageDto.setCount(${entityNameLowerCase}Dao.selectCountByDto(dto));
 		if(pageDto.getCount()> 0) {
-			return ${entityNameLowerCase}Dao.selectPageByDto(dto, pageDto);
+			List<${entityName}> results=${entityNameLowerCase}Dao.selectPageByDto(dto, pageDto);
+			return new PageResult<${entityName}>(pageDto, results);
 		}else {
-			return null;
+			return new PageResult<${entityName}>(pageDto, null);
 		}
 	}
 }

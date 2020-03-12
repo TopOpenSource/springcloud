@@ -15,13 +15,14 @@ public class PageDto {
 	private Integer pages;
 	// 起始 limit
 	private Integer start;
-
-	public Integer getPages() {
+	
+	public void setCount(Integer count) {
+		this.count=count;
+		//计算总页码
 		if (this.pageSize == 0) {
 			this.pageSize = DEFAULT_PAGESIZE;
 		}
 		this.pages = this.count % this.pageSize == 0 ? this.count / this.pageSize : this.count / this.pageSize + 1;
-		return this.pages;
 	}
 
 	public Integer getStart() {
