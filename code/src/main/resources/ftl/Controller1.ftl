@@ -13,10 +13,11 @@ import ${modelPackage}.${entityName};
 import com.sdstc.oauth.service.Oauth2Service;
 import ${serviceInterPackage}.${entityName}Service;
 import com.sdstc.pub.dto.LoginUserInfo;
-
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api/${serviceName}/${entityNameLowerCase}")
+@Log4j2
 public class ${entityName}Controller {
 	@Autowired
 	private ${entityName}Service ${entityNameLowerCase}Service;

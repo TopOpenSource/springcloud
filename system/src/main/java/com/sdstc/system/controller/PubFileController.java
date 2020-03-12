@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sdstc.pub.dto.PageDto;
 import com.sdstc.pub.dto.PageResult;
 import com.sdstc.pub.dto.ResultDto;
@@ -14,10 +13,11 @@ import com.sdstc.system.model.PubFile;
 import com.sdstc.oauth.service.Oauth2Service;
 import com.sdstc.system.service.PubFileService;
 import com.sdstc.pub.dto.LoginUserInfo;
-
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api/system/pubFile")
+@Log4j2
 public class PubFileController {
 	@Autowired
 	private PubFileService pubFileService;

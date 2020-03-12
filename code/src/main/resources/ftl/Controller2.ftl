@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sdstc.pub.dto.PageDto;
 import com.sdstc.pub.dto.PageResult;
 import com.sdstc.pub.dto.ResultDto;
@@ -14,10 +13,11 @@ import ${modelPackage}.${entityName};
 import com.sdstc.oauth.service.Oauth2Service;
 import ${serviceInterPackage}.${entityName}Service;
 import com.sdstc.pub.dto.LoginUserInfo;
-
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/api/${serviceName}/${entityNameLowerCase}")
+@Log4j2
 public class ${entityName}Controller {
 	@Autowired
 	private ${entityName}Service ${entityNameLowerCase}Service;
