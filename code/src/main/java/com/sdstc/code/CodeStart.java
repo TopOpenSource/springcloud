@@ -24,10 +24,10 @@ public class CodeStart {
 
 		// 数据源
 		String jdbcUrl = "172.16.200.12:30686";
-		String scheme = "project";
+		String scheme = "system";
 		String userName = "root";
 		String pwd = "qwe123-=";
-		String tableName = "pub_file";
+		String tableName = "sys_dict";
          
 		// dao包名  推荐默认
 		String daoPackage = "com.sdstc." + serviceName + ".dao";

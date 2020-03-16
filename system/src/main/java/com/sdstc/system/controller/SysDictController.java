@@ -9,54 +9,51 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sdstc.pub.dto.PageDto;
 import com.sdstc.pub.dto.PageResult;
 import com.sdstc.pub.dto.ResultDto;
-import com.sdstc.system.model.PubFile;
+import com.sdstc.system.model.SysDict;
 import com.sdstc.oauth.service.Oauth2Service;
-import com.sdstc.system.service.PubFileService;
+import com.sdstc.system.service.SysDictService;
 import com.sdstc.pub.dto.LoginUserInfo;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/api/system/pubFile")
+@RequestMapping("/api/system/sysDict")
 @Log4j2
-public class PubFileController {
+public class SysDictController {
 	@Autowired
-	private PubFileService pubFileService;
+	private SysDictService sysDictService;
 	@Autowired
 	private  Oauth2Service oauth2Service;
 	
 	@RequestMapping("insert")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public ResultDto insert(PubFile dto) {
+	public ResultDto insert(SysDict dto) {
 		ResultDto resultDto=new ResultDto(1,"");
 		LoginUserInfo loginUser=oauth2Service.userInfo();
-		dto.setCustomerId(loginUser.getCustomerId());
 		dto.setCreateAccount(loginUser.getUserAccount());
 		
-		pubFileService.insert(dto);
+		sysDictService.insert(dto);
 		return resultDto;
 	}
 	
 	@RequestMapping("updateByPK")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public ResultDto updateByPK(PubFile dto) {
+	public ResultDto updateByPK(SysDict dto) {
 		ResultDto resultDto=new ResultDto(1,"");
 		LoginUserInfo loginUser=oauth2Service.userInfo();
-		dto.setCustomerId(loginUser.getCustomerId());
 		dto.setModifiedAccount(loginUser.getUserAccount());
 		
-		pubFileService.updateByPK(dto);
+		sysDictService.updateByPK(dto);
 		return resultDto;
 	}
 	
 	@RequestMapping("updateSelectiveByPK")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public ResultDto updateSelectiveByPK(PubFile dto) {
+	public ResultDto updateSelectiveByPK(SysDict dto) {
 		ResultDto resultDto=new ResultDto(1,"");
 		LoginUserInfo loginUser=oauth2Service.userInfo();
-		dto.setCustomerId(loginUser.getCustomerId());
 		dto.setModifiedAccount(loginUser.getUserAccount());
 		
-		pubFileService.updateSelectiveByPK(dto);
+		sysDictService.updateSelectiveByPK(dto);
 		return resultDto;
 	}
 	
@@ -64,27 +61,25 @@ public class PubFileController {
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	public ResultDto deleteByPK(Long id) {
 		ResultDto resultDto=new ResultDto(1,"");
-		pubFileService.deleteByPK(id,oauth2Service.userInfo().getCustomerId());
+		sysDictService.deleteByPK(id);
 		return resultDto;
 	}
 	
 	@RequestMapping("selectByPK")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public PubFile selectByPK(Long id) {
-		return pubFileService.selectByPK(id,oauth2Service.userInfo().getCustomerId());
+	public SysDict selectByPK(Long id) {
+		return sysDictService.selectByPK(id);
 	}
 	
 	@RequestMapping("selectByDto")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public List<PubFile> selectByDto(PubFile dto) {
-		dto.setCustomerId(oauth2Service.userInfo().getCustomerId());
-		return pubFileService.selectByDto(dto);
+	public List<SysDict> selectByDto(SysDict dto) {
+		return sysDictService.selectByDto(dto);
 	}
 	
 	@RequestMapping("selectPageByDto")
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	public PageResult<PubFile> selectPageByDto(PubFile dto,PageDto pageDto) {
-		dto.setCustomerId(oauth2Service.userInfo().getCustomerId());
-		return pubFileService.selectPageByDto(dto,pageDto);
+	public PageResult<SysDict> selectPageByDto(SysDict dto,PageDto pageDto) {
+		return sysDictService.selectPageByDto(dto,pageDto);
 	}
 }

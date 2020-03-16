@@ -11,120 +11,11 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 03/03/2020 11:18:49
+ Date: 16/03/2020 10:46:58
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for pub_dict
--- ----------------------------
-DROP TABLE IF EXISTS `pub_dict`;
-CREATE TABLE `pub_dict`  (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典名称',
-  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典code',
-  `p_id` bigint(20) NULL DEFAULT NULL COMMENT '父级ID',
-  `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '路径',
-  `gmt_create` datetime(0) NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL COMMENT '最后修改时间',
-  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of pub_dict
--- ----------------------------
-
--- ----------------------------
--- Table structure for pub_file
--- ----------------------------
-DROP TABLE IF EXISTS `pub_file`;
-CREATE TABLE `pub_file`  (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名',
-  `size` decimal(5, 0) NULL DEFAULT NULL COMMENT '文件大小',
-  `path` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件所在路径',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
-  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
-  `gmt_create` datetime(0) NULL DEFAULT NULL,
-  `gmt_modified` datetime(0) NULL DEFAULT NULL,
-  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of pub_file
--- ----------------------------
-
--- ----------------------------
--- Table structure for pub_file_relation
--- ----------------------------
-DROP TABLE IF EXISTS `pub_file_relation`;
-CREATE TABLE `pub_file_relation`  (
-  `id` bigint(20) NOT NULL,
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '关联类型',
-  `file_id` bigint(20) NOT NULL COMMENT '文件ID',
-  `ref_id` bigint(20) NOT NULL COMMENT '关联对象ID',
-  `customer_id` bigint(20) NOT NULL,
-  `gmt_create` datetime(0) NOT NULL,
-  `gmt_modified` datetime(0) NOT NULL,
-  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of pub_file_relation
--- ----------------------------
-
--- ----------------------------
--- Table structure for pub_log
--- ----------------------------
-DROP TABLE IF EXISTS `pub_log`;
-CREATE TABLE `pub_log`  (
-  `id` bigint(20) NOT NULL,
-  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
-  `gmt_create` datetime(0) NULL DEFAULT NULL,
-  `gmt_modified` datetime(0) NULL DEFAULT NULL,
-  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志类型',
-  `level` int(1) NULL DEFAULT NULL COMMENT '日志级别',
-  `info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志内容',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志状态(0 未处理 1 已处理 2无法处理)',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of pub_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for pub_message
--- ----------------------------
-DROP TABLE IF EXISTS `pub_message`;
-CREATE TABLE `pub_message`  (
-  `id` bigint(20) NOT NULL,
-  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
-  `gmt_create` datetime(0) NULL DEFAULT NULL,
-  `gmt_modified` datetime(0) NULL DEFAULT NULL,
-  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息类型',
-  `level` int(1) NULL DEFAULT NULL COMMENT '消息级别',
-  `info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息内容',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息状态(0 未读 1 已读)',
-  `owner` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息接收人',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of pub_message
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for server_config
@@ -193,10 +84,10 @@ INSERT INTO `sys_customer` VALUES (1, '2020-03-01 00:13:47', '2020-03-01 00:13:4
 INSERT INTO `sys_customer` VALUES (684347455885541376, '2020-03-03 10:32:28', NULL, 'admin', NULL, '山东道普', NULL, NULL, NULL, NULL, NULL, '2020-03-03', '', '\0', NULL);
 
 -- ----------------------------
--- Table structure for sys_customer_state
+-- Table structure for sys_customer_ext
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_customer_state`;
-CREATE TABLE `sys_customer_state`  (
+DROP TABLE IF EXISTS `sys_customer_ext`;
+CREATE TABLE `sys_customer_ext`  (
   `id` bigint(20) NOT NULL,
   `gmt_create` datetime(0) NULL DEFAULT NULL,
   `gmt_modified` datetime(0) NULL DEFAULT NULL,
@@ -205,11 +96,135 @@ CREATE TABLE `sys_customer_state`  (
   `customer_id` bigint(20) NULL DEFAULT NULL,
   `is_server_init` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主机是否初始化 0 未初始化  1正在初始化 2已完成',
   `is_lre_init` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'lre服务是否初始化 0 未初始化 1正在初始化 2已完成',
+  `host_count` int(4) NULL DEFAULT NULL COMMENT 'host数量',
+  `lg_count` int(4) NULL DEFAULT NULL COMMENT 'lg数量',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_customer_state
+-- Records of sys_customer_ext
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict`  (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典名称',
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典code',
+  `p_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '父级code',
+  `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '路径  \"code1/code2/code3\" 可用于验证重复',
+  `order_no` int(3) NULL DEFAULT NULL COMMENT '排序序号,同级排序',
+  `gmt_create` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(0) NULL DEFAULT NULL COMMENT '最后修改时间',
+  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `id`(`id`) USING BTREE,
+  INDEX `path`(`path`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+INSERT INTO `sys_dict` VALUES (688060335726264320, '人物', 'person', '', NULL, NULL, '2020-03-13 16:26:08', NULL, 'admin', NULL);
+INSERT INTO `sys_dict` VALUES (688061066302717952, '性别', 'sex', 'person', '/person/sex', NULL, '2020-03-13 16:29:02', NULL, 'admin', NULL);
+INSERT INTO `sys_dict` VALUES (688061299954810880, '民族', 'minzu', 'person', '/person/minzu', NULL, '2020-03-13 16:29:57', NULL, 'admin', NULL);
+INSERT INTO `sys_dict` VALUES (688061533170696192, '汉族', '0', 'minzu', '/person/minzu/0', NULL, '2020-03-13 16:30:53', NULL, 'admin', NULL);
+INSERT INTO `sys_dict` VALUES (688061672757133312, '回族', '1', 'minzu', '/person/minzu/1', NULL, '2020-03-13 16:31:26', NULL, 'admin', NULL);
+
+-- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file`;
+CREATE TABLE `sys_file`  (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名',
+  `size` decimal(5, 0) NULL DEFAULT NULL COMMENT '文件大小',
+  `path` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件所在路径',
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
+  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
+  `gmt_create` datetime(0) NULL DEFAULT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_file
+-- ----------------------------
+INSERT INTO `sys_file` VALUES (1, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_file` VALUES (2, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_file` VALUES (3, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_file` VALUES (687668691768180736, 'file2', 10, NULL, NULL, 1, '2020-03-12 14:29:51', '2020-03-12 14:31:21', 'admin', 'admin');
+
+-- ----------------------------
+-- Table structure for sys_file_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file_relation`;
+CREATE TABLE `sys_file_relation`  (
+  `id` bigint(20) NOT NULL,
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '关联类型',
+  `file_id` bigint(20) NOT NULL COMMENT '文件ID',
+  `ref_id` bigint(20) NOT NULL COMMENT '关联对象ID',
+  `customer_id` bigint(20) NOT NULL,
+  `gmt_create` datetime(0) NOT NULL,
+  `gmt_modified` datetime(0) NOT NULL,
+  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_file_relation
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log`  (
+  `id` bigint(20) NOT NULL,
+  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
+  `gmt_create` datetime(0) NULL DEFAULT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志类型',
+  `level` int(1) NULL DEFAULT NULL COMMENT '日志级别',
+  `info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志内容',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '日志状态(0 未处理 1 已处理 2无法处理)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_message
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_message`;
+CREATE TABLE `sys_message`  (
+  `id` bigint(20) NOT NULL,
+  `customer_id` bigint(20) NULL DEFAULT NULL COMMENT '客户ID',
+  `gmt_create` datetime(0) NULL DEFAULT NULL,
+  `gmt_modified` datetime(0) NULL DEFAULT NULL,
+  `create_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `modified_account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最后修改人',
+  `type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息类型',
+  `send_type` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '000  第一位代表 站内 第二位代表 邮件 第三位代表 短信',
+  `level` int(1) NULL DEFAULT NULL COMMENT '消息级别',
+  `info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息内容',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息状态(0 未读 1 已读)',
+  `owner` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '消息接收人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_message
 -- ----------------------------
 
 -- ----------------------------
@@ -365,6 +380,6 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, '2020-03-01 00:12:13', '2020-03-01 00:12:15', 'admin', 'admin', 'admin', 1, 1);
-INSERT INTO `sys_user_role` VALUES (2, '2020-03-01 00:12:13', '2020-03-01 00:12:15', 'admin', 'admin', 'admin', 2, 1);
+INSERT INTO `sys_user_role` VALUES (2, '2020-03-01 00:12:13', '2020-03-01 00:12:15', 'admin', 'admin', 'user', 2, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

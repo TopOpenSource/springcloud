@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sdstc.system.dao.base.PubFileBaseDao">
+<mapper namespace="com.sdstc.system.dao.base.SysDictBaseDao">
 	
-	<resultMap id="PubFileMap" type="com.sdstc.system.model.PubFile">
+	<resultMap id="SysDictMap" type="com.sdstc.system.model.SysDict">
 	    <id column="id" property="id" />
 	    <result column="name" property="name" />
-	    <result column="size" property="size" />
+	    <result column="code" property="code" />
+	    <result column="p_code" property="pCode" />
 	    <result column="path" property="path" />
-	    <result column="type" property="type" />
-	    <result column="customer_id" property="customerId" />
+	    <result column="order_no" property="orderNo" />
 	    <result column="gmt_create" property="gmtCreate" />
 	    <result column="gmt_modified" property="gmtModified" />
 	    <result column="create_account" property="createAccount" />
 	    <result column="modified_account" property="modifiedAccount" />
 	</resultMap>
 	
-    <sql id="PubFileCols">
-      id,name,size,path,type,customer_id,gmt_create,gmt_modified,create_account,modified_account
+    <sql id="SysDictCols">
+      id,name,code,p_code,path,order_no,gmt_create,gmt_modified,create_account,modified_account
     </sql>
     
-    <sql id="PubFileProps">
-      #{id},#{name},#{size},#{path},#{type},#{customerId},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount}
+    <sql id="SysDictProps">
+      #{id},#{name},#{code},#{pCode},#{path},#{orderNo},#{gmtCreate},#{gmtModified},#{createAccount},#{modifiedAccount}
     </sql>
     
-    <insert id="insert" parameterType="com.sdstc.system.model.PubFile">
-        insert into pub_file
-        (<include refid="PubFileCols"></include>)
+    <insert id="insert" parameterType="com.sdstc.system.model.SysDict">
+        insert into sys_dict
+        (<include refid="SysDictCols"></include>)
         values
-        (<include refid="PubFileProps"></include>)
+        (<include refid="SysDictProps"></include>)
     </insert>
         
-    <update id="updateSelectiveByPK" parameterType="com.sdstc.system.model.PubFile">
-		update pub_file
+    <update id="updateSelectiveByPK" parameterType="com.sdstc.system.model.SysDict">
+		update sys_dict
 		<set>
 		  
 	        <if test="name != null and name != ''">
 		        name = #{name},
 		    </if>
 		  
-	        <if test="size != null">
-		        size = #{size},
+	        <if test="code != null and code != ''">
+		        code = #{code},
+		    </if>
+		  
+	        <if test="pCode != null and pCode != ''">
+		        p_code = #{pCode},
 		    </if>
 		  
 	        <if test="path != null and path != ''">
 		        path = #{path},
 		    </if>
 		  
-	        <if test="type != null and type != ''">
-		        type = #{type},
-		    </if>
-		  
-	        <if test="customerId != null">
-		        customer_id = #{customerId},
+	        <if test="orderNo != null">
+		        order_no = #{orderNo},
 		    </if>
 		  
 	        <if test="gmtCreate != null">
@@ -72,18 +72,17 @@
 		</set>
 		<where>
 		  id = #{id} 
-		  and customer_id = #{customerId}  
 		</where> 
 	</update>
 	
-	<update id="updateByPK" parameterType="com.sdstc.system.model.PubFile">
-		update pub_file
+	<update id="updateByPK" parameterType="com.sdstc.system.model.SysDict">
+		update sys_dict
 		<set>
 	    name = #{name},
-	    size = #{size},
+	    code = #{code},
+	    p_code = #{pCode},
 	    path = #{path},
-	    type = #{type},
-	    customer_id = #{customerId},
+	    order_no = #{orderNo},
 	    gmt_create = #{gmtCreate},
 	    gmt_modified = #{gmtModified},
 	    create_account = #{createAccount},
@@ -91,25 +90,22 @@
 		</set>
 		<where>
 		  id = #{id} 
-		  and customer_id = #{customerId} 
 		</where> 
 	</update>
 	
 	<delete id="deleteByPK">
-		delete from pub_file
+		delete from sys_dict
 		<where>
 		  id = #{id} 
-		  and customer_id = #{customerId}  
 		</where> 
 	</delete>
 	
-	<select id="selectByPK" resultMap="PubFileMap">
+	<select id="selectByPK" resultMap="SysDictMap">
 		select
-			<include refid="PubFileCols"></include>
-		from pub_file
+			<include refid="SysDictCols"></include>
+		from sys_dict
 		<where>
 		  id = #{id} 
-		  and customer_id = #{customerId}  
 		</where> 
 	</select>
 	

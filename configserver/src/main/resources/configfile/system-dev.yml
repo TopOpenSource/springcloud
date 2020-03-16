@@ -16,37 +16,19 @@ spring:
     password: qwe123-=
   shardingsphere:
     datasource:
-      names: order,system,project,product
-      order:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/order?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
+      names: system
       system:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
         jdbcUrl: jdbc:mysql://172.16.200.12:30686/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=        
-      project:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/project?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      product:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.12:30686/product?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
     sharding:
         defaultDataSourceName: system
         broadcastTables: #广播表
-        - pub_dict
-        - pub_file
-        - pub_file_relation
+        - sys_dict
+        - sys_file
+        - sys_file_relation
         - sys_user
         - sys_customer
     props:
