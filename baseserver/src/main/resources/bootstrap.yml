@@ -8,5 +8,5 @@ spring:
            enabled: true
      config:
         uri: http://localhost:8002
-        name: baseser
+        name: baseserver
         profile: dev

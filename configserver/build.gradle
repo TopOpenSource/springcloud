@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot'
+    id 'com.bmuschko.docker-remote-api'
 }
 
 repositories {
@@ -17,4 +18,43 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-config-server')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
+}
+
+docker {
+    url = 'https://172.16.200.51:2376'
+    registryCredentials{
+        url = 'registry.cn-hangzhou.aliyuncs.com'
+        username = ''
+        password = ''
+        email = '807992213@qq.com'
+    }
+}
+
+import com.bmuschko.gradle.docker.tasks.image.*
+
+//复制docker文件和jar
+task copyDockerfile(type: Copy){
+   File srcDir = file(buildDir)
+   File targetPath = file("${srcDir.getPath()}/docker/")
+   if (!targetPath.exists()){
+        targetPath.mkdirs()
+   }
+   
+   from "${srcDir.getPath()}/resources/main/Dockerfile"
+   into "${targetPath.getPath()}/config"
+   
+   from "${srcDir.getPath()}/libs/configserver.jar"
+   into "${targetPath.getPath()}/"
+   
+   //复制配置文件
+   from "${srcDir.getPath()}/resources/main/configfile"
+   into "${targetPath.getPath()}/"
+}
+
+task buildDockerImage(type: DockerBuildImage,dependsOn:copyDockerfile){
+    images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
+}
+
+task pushDockerImage(type: DockerPushImage,dependsOn:buildDockerImage){
+   images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
 }

@@ -18,12 +18,11 @@ dependencies {
 }
 
 docker {
-    url = 'https://172.16.200.20:2376'
+    url = 'tcp://172.16.200.51:2375'
     registryCredentials{
         url = 'registry.cn-hangzhou.aliyuncs.com'
-        username = 'bugofcn'
-        password = 'c807992213'
-        email = '807992213@qq.com'
+        username = 'hi30297787@aliyun.com'
+        password = 'sdstc!QAZ2wsx'
     }
 }
 
@@ -45,9 +44,9 @@ task copyDockerfile(type: Copy){
 }
 
 task buildDockerImage(type: DockerBuildImage,dependsOn:copyDockerfile){
-    images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
+    images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:dev')
 }
 
 task pushDockerImage(type: DockerPushImage,dependsOn:buildDockerImage){
-   images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
+   images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:dev')
 }

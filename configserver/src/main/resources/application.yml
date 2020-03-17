@@ -10,13 +10,13 @@ spring:
      config:
         server:
            native:
-              searchLocations: D:/config
+              searchLocations: /root/config
   #bus
   rabbitmq:
      host: 172.16.200.12
      port: 31430
      username: admin
-     password: qwe123-= 
+     password: qwe123-=
        
 #暴露bus 接口 ，否则更新 refresh
 management:
