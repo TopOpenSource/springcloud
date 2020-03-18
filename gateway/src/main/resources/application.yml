@@ -1,4 +1,4 @@
-eureka-server: http://localhost:8000
+eureka-server: http://172.16.200.53:8000
 
 spring:
   application:
