@@ -21,12 +21,11 @@ dependencies {
 }
 
 docker {
-    url = 'https://172.16.200.51:2376'
+    url = 'tcp://172.16.200.51:2375'
     registryCredentials{
         url = 'registry.cn-hangzhou.aliyuncs.com'
-        username = ''
-        password = ''
-        email = '807992213@qq.com'
+        username = 'hi30297787@aliyun.com'
+        password = 'sdstc!QAZ2wsx'
     }
 }
 
@@ -40,21 +39,17 @@ task copyDockerfile(type: Copy){
         targetPath.mkdirs()
    }
    
-   from "${srcDir.getPath()}/resources/main/Dockerfile"
-   into "${targetPath.getPath()}/config"
-   
    from "${srcDir.getPath()}/libs/configserver.jar"
    into "${targetPath.getPath()}/"
    
-   //复制配置文件
-   from "${srcDir.getPath()}/resources/main/configfile"
+   from "${srcDir.getPath()}/resources/main/Dockerfile"
    into "${targetPath.getPath()}/"
 }
 
 task buildDockerImage(type: DockerBuildImage,dependsOn:copyDockerfile){
-    images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
+    images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/configserver:0.0.1-dev')
 }
 
 task pushDockerImage(type: DockerPushImage,dependsOn:buildDockerImage){
-   images.add('registry.cn-hangzhou.aliyuncs.com/sdtop/test:v1.0')
+   images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/configserver:0.0.1-dev')
 }

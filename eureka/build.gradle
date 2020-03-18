@@ -44,9 +44,9 @@ task copyDockerfile(type: Copy){
 }
 
 task buildDockerImage(type: DockerBuildImage,dependsOn:copyDockerfile){
-    images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:dev')
+    images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:0.0.1-dev')
 }
 
 task pushDockerImage(type: DockerPushImage,dependsOn:buildDockerImage){
-   images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:dev')
+   images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/eureka:0.0.1-dev')
 }
