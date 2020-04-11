@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class SysUserExt extends BaseModel {
+public class UserExt extends BaseModel {
     /**
 	 * 
 	 */
@@ -37,7 +37,7 @@ public class SysUserExt extends BaseModel {
 	 */
     private String userAccount;
     
-    public SysUserExt() {
+    public UserExt() {
     	
     }
     

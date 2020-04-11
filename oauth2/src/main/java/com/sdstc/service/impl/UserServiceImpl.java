@@ -14,7 +14,7 @@ import com.sdstc.integration.IntegrationAuthentication;
 import com.sdstc.model.Customer;
 import com.sdstc.model.Perm;
 import com.sdstc.model.Role;
-import com.sdstc.model.UserInfo;
+import com.sdstc.model.User;
 import com.sdstc.model.UserSecurity;
 import com.sdstc.pub.utils.StringUtils;
 import com.sdstc.service.UserService;
@@ -59,13 +59,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Customer> getCustomersByUser(UserInfo user) {
+	public List<Customer> getCustomersByUser(User user) {
 		return userDao.getCustomersByUser(user);
 	}
 
 	@Override
-	public UserInfo getUser(String account) {
-		UserInfo userInfo=userDao.getUser(account);
+	public User getUser(String account) {
+		User userInfo=userDao.getUser(account);
 		//获取短信验证码
 		String smsCode=redisService.getValue(SMS_CODE_HEADER+account);
 		if(!StringUtils.isEmpty(smsCode)) {
@@ -77,9 +77,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserSecurity getUserSecurity(String account, Long customerId, String authType) {
 		// 获取用户信息
-		UserInfo userInfo = this.getUser(account);
+		User userInfo = this.getUser(account);
 		// 获取所属的全部客户信息
-		List<Customer> customers = this.getCustomersByUser(new UserInfo(account, null));
+		List<Customer> customers = this.getCustomersByUser(new User(account, null));
 
 		Customer customer = null;
 		if (customerId == null) {

@@ -3,7 +3,7 @@ package com.sdstc.model;
 import lombok.Data;
 
 @Data
-public class UserInfo {
+public class User {
 	private Long id;
 	private String account;
 	private String name;
@@ -14,10 +14,10 @@ public class UserInfo {
 	//客户ID
 	private Long customerId;
 	
-	public UserInfo() {
+	public User() {
 		
 	}
-	public UserInfo(String account,Long customerId) {
+	public User(String account, Long customerId) {
 		this.account=account;
 		this.customerId=customerId;
 	}

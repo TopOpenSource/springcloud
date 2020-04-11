@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.sdstc.model.Customer;
 import com.sdstc.model.Perm;
 import com.sdstc.model.Role;
-import com.sdstc.model.UserInfo;
+import com.sdstc.model.User;
 
 /**
  * 
@@ -15,8 +15,8 @@ import com.sdstc.model.UserInfo;
  *
  */
 public interface UserDao {
-   UserInfo getUser(@Param("account")String account);
+   User getUser(@Param("account")String account);
    List<Role> getRolesByUser(@Param("account")String account,@Param("customerId")Long customerId);
    List<Perm> getPermsByUser(@Param("account")String account,@Param("customerId")Long customerId);
-   List<Customer> getCustomersByUser(UserInfo user);
+   List<Customer> getCustomersByUser(User user);
 }

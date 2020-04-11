@@ -12,9 +12,6 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
@@ -22,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sdstc.model.UserInfo;
+import com.sdstc.model.User;
 import com.sdstc.model.UserSecurity;
 import com.sdstc.pub.dto.LoginUserInfo;
 import com.sdstc.pub.dto.ResultDto;
@@ -53,7 +50,7 @@ public class TokenController {
 	}
 
 	@RequestMapping("user")
-	public Principal user(Principal principal,UserInfo dto) {
+	public Principal user(Principal principal, User dto) {
 		System.out.println(dto);
 		return principal;
 	}
@@ -84,7 +81,7 @@ public class TokenController {
 	public Boolean removeToken(OAuth2Authentication authentication) {
 		//删除redis current
 		UsernamePasswordAuthenticationToken userAuth=(UsernamePasswordAuthenticationToken) authentication.getUserAuthentication();
-		User user=(User) userAuth.getPrincipal();
+		org.springframework.security.core.userdetails.User user=(org.springframework.security.core.userdetails.User) userAuth.getPrincipal();
 		System.out.println(user.getUsername());
 		
 		//删除token

@@ -3,7 +3,7 @@ package com.sdstc.service;
 import java.util.List;
 
 import com.sdstc.model.Customer;
-import com.sdstc.model.UserInfo;
+import com.sdstc.model.User;
 import com.sdstc.model.UserSecurity;
 
 public interface UserService {
@@ -13,14 +13,14 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	List<Customer> getCustomersByUser(UserInfo user);
+	List<Customer> getCustomersByUser(User user);
 	
 	/**
 	   * 获取账户信息
 	 * @param account
 	 * @return
 	 */
-	UserInfo getUser(String account);
+	User getUser(String account);
 	
 	/**
 	 *  拼装 UserSecurity 用于OAuth2验证

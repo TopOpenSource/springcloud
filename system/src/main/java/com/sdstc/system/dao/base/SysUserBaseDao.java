@@ -2,14 +2,14 @@ package com.sdstc.system.dao.base;
 
 
 import org.apache.ibatis.annotations.Param;
-import com.sdstc.system.model.SysUser;
+import com.sdstc.system.model.User;
 
 
 public interface SysUserBaseDao {
-   void  insert(SysUser dto);
-   void  updateByPK(SysUser dto);
-   void  updateSelectiveByPK(SysUser dto);
+   void  insert(User dto);
+   void  updateByPK(User dto);
+   void  updateSelectiveByPK(User dto);
    void  deleteByPK(@Param("id") Long id);
-   SysUser  selectByPK(@Param("id") Long id);
+   User selectByPK(@Param("id") Long id);
    
 }

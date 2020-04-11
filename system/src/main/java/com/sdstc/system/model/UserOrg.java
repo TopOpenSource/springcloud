@@ -9,33 +9,25 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class SysUser extends BaseModel {
+public class UserOrg extends BaseModel {
     /**
 	 * 
 	 */
     private Long id;
     /**
-	 * 姓名
+	 * 客户ID（冗余）
 	 */
-    private String name;
+    private Long customerId;
     /**
-	 * 账号
+	 * 所属组织ID
 	 */
-    private String account;
+    private Long orgId;
     /**
-	 * 手机号
+	 * 用户ID
 	 */
-    private String phone;
+    private String userAccount;
     /**
-	 * 邮箱
-	 */
-    private String email;
-    /**
-	 * 密码
-	 */
-    private String pwd;
-    /**
-	 * 0 注销 1正常
+	 * 用户状态 0 禁用 1启用
 	 */
     private String state;
 }

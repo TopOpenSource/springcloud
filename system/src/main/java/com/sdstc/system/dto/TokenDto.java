@@ -1,10 +1,9 @@
 package com.sdstc.system.dto;
 
-import java.util.List;
-
 import com.sdstc.system.model.Customer;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class TokenDto {

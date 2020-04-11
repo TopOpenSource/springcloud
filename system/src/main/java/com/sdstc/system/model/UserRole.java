@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class SysUserRole extends BaseModel {
+public class UserRole extends BaseModel {
     /**
 	 * 
 	 */
@@ -29,7 +29,7 @@ public class SysUserRole extends BaseModel {
 	 */
     private Long customerId;
     
-    public SysUserRole(Long id, String createAccount, Date gmtCreate, String userAccount, Long roleId, Long customerId) {
+    public UserRole(Long id, String createAccount, Date gmtCreate, String userAccount, Long roleId, Long customerId) {
     	this.id = id;
     	this.setCreateAccount(createAccount);
     	this.setGmtCreate(gmtCreate);

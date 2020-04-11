@@ -13,7 +13,7 @@
 		<result column="name" property="name" />
 	</resultMap>
 
-	<resultMap id="UserInfoMap" type="com.sdstc.model.UserInfo">
+	<resultMap id="UserInfoMap" type="com.sdstc.model.User">
 		<id column="id" property="id" />
 		<result column="account" property="account" />
 		<result column="name" property="name" />
@@ -49,7 +49,7 @@
 		 and t2.customer_id=#{customerId}  
 	</select>
 
-	<select id="getCustomersByUser" resultMap="CustomerMap" parameterType="com.sdstc.model.UserInfo">
+	<select id="getCustomersByUser" resultMap="CustomerMap" parameterType="com.sdstc.model.User">
          SELECT 
             DISTINCT( t2.id ) AS id,t2.NAME 
 		 FROM

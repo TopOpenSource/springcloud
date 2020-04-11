@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class SysOrg extends BaseModel {
+public class Org extends BaseModel {
     /**
 	 * 
 	 */
