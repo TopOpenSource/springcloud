@@ -1,0 +1,12 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  #配置中心  
+  cloud:
+     bus:
+        trace:
+           enabled: true
+     config:
+        uri: http://172.16.200.49:8001
+        name: baseservice
+        profile: local

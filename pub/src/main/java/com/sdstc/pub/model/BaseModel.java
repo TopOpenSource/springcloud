@@ -15,4 +15,5 @@ public class BaseModel {
     private Date gmtModified;
     private String createAccount;
     private String modifiedAccount;
+    private String isDelete="0";
 }

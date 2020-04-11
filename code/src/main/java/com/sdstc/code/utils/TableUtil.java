@@ -51,7 +51,12 @@ public class TableUtil {
 		String primaryKey = null;
 		String sqlPk = null;
 		String pkJavaType=null;
-
+		
+		//删除状态
+		Boolean hasDel=false;
+		String sqlDelKey=null;
+		String delKey=null;
+		
 		for (Column sqlCol : sqlCols) {
 			Column col = parseCol(sqlCol);
 			if ("Date".equals(col.getJavaDataType())&& (!Params.parentColumns.contains(col.getColumnName()))) {
@@ -74,6 +79,12 @@ public class TableUtil {
 				sqlPk=col.getColumnName();
 				pkJavaType=col.getJavaDataType();
 			}
+			
+			if (Params.delCol.equals(col.getColumnName())) {
+				hasDel=true;
+				delKey=col.getJavaColumnName();
+				sqlDelKey=col.getColumnName();
+			}
 
 			table.addCol(col);
 		}
@@ -86,6 +97,11 @@ public class TableUtil {
 		table.setTenantKey(tenantKey);
 		table.setSqlTenantKey(sqlTenantKey);
 		table.setTenantKeyJavaType(tenantKeyJavaType);
+		
+		table.setHasDel(hasDel);
+		table.setDelKey(delKey);
+		table.setSqlDelKey(sqlDelKey);
+		
 		if(table.getTenantKey()!=null) {
 			table.setTenantKeyUpperCase(Params.firestUpperCase(table.getTenantKey()));
 		}

@@ -11,9 +11,15 @@ repositories {
 }
 
 dependencies {
-   compile('org.springframework:spring-web:5.2.4.RELEASE')
-   compile('org.springframework:spring-context:5.2.4.RELEASE')
    compile('org.apache.logging.log4j:log4j-slf4j-impl:2.13.0')
    compile('org.apache.commons:commons-lang3:3.9')
    compile('com.alibaba:fastjson:1.2.66')
+   
+   //bean与XML互转插件jackson-dataformat-xml
+    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.11.0.rc1')
+}
+
+//编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

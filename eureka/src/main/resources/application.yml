@@ -2,13 +2,16 @@ server:
   port: 8000
 eureka:  
   instance:  
-    hostname: euraka
+    hostname: localhost
   server:
-    renewalPercentThreshold: 0 #设置阈值
+    renewalPercentThreshold: 0      #设置阈值
+    enableSelfPreservation: false   #关闭eureka的自我保护
+    evictionIntervaltimerInMs: 4000 # 每隔 4 秒清理服务列表 
+    
   client:  
     registerWithEureka: false  
     fetchRegistry: false  
     serviceUrl:  
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ 
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka/ 
 logging:
   config: classpath:log4j2.xml

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.system.dao.base.SysUserOrgBaseDao">
+	
+	<resultMap id="SysUserOrgMap" type="com.sdstc.system.model.SysUserOrg">
+	    <id column="id" property="id" />
+	    <result column="gmt_create" property="gmtCreate" />
+	    <result column="gmt_modified" property="gmtModified" />
+	    <result column="modified_account" property="modifiedAccount" />
+	    <result column="create_account" property="createAccount" />
+	    <result column="customer_id" property="customerId" />
+	    <result column="is_delete" property="isDelete" />
+	    <result column="org_id" property="orgId" />
+	    <result column="user_account" property="userAccount" />
+	    <result column="state" property="state" />
+	</resultMap>
+	
+    <sql id="SysUserOrgCols">
+      id,gmt_create,gmt_modified,modified_account,create_account,customer_id,is_delete,org_id,user_account,state
+    </sql>
+    
+    <sql id="SysUserOrgProps">
+      #{id},#{gmtCreate},#{gmtModified},#{modifiedAccount},#{createAccount},#{customerId},#{isDelete},#{orgId},#{userAccount},#{state}
+    </sql>
+    
+    <insert id="insert" parameterType="com.sdstc.system.model.SysUserOrg">
+        insert into sys_user_org
+        (<include refid="SysUserOrgCols"></include>)
+        values
+        (<include refid="SysUserOrgProps"></include>)
+    </insert>
+        
+    <update id="updateSelectiveByPK" parameterType="com.sdstc.system.model.SysUserOrg">
+		update sys_user_org
+		<set>
+		  
+	        <if test="gmtCreate != null">
+		        gmt_create = #{gmtCreate},
+		    </if>
+		  
+	        <if test="gmtModified != null">
+		        gmt_modified = #{gmtModified},
+		    </if>
+		  
+	        <if test="modifiedAccount != null and modifiedAccount != ''">
+		        modified_account = #{modifiedAccount},
+		    </if>
+		  
+	        <if test="createAccount != null and createAccount != ''">
+		        create_account = #{createAccount},
+		    </if>
+		  
+	        <if test="customerId != null">
+		        customer_id = #{customerId},
+		    </if>
+		  
+	        <if test="isDelete != null and isDelete != ''">
+		        is_delete = #{isDelete},
+		    </if>
+		  
+	        <if test="orgId != null">
+		        org_id = #{orgId},
+		    </if>
+		  
+	        <if test="userAccount != null and userAccount != ''">
+		        user_account = #{userAccount},
+		    </if>
+		  
+	        <if test="state != null and state != ''">
+		        state = #{state},
+		    </if>
+		</set>
+		<where>
+		  id = #{id} 
+		  and customer_id = #{customerId}  
+		</where> 
+	</update>
+	
+	<update id="updateByPK" parameterType="com.sdstc.system.model.SysUserOrg">
+		update sys_user_org
+		<set>
+	    gmt_create = #{gmtCreate},
+	    gmt_modified = #{gmtModified},
+	    modified_account = #{modifiedAccount},
+	    create_account = #{createAccount},
+	    customer_id = #{customerId},
+	    is_delete = #{isDelete},
+	    org_id = #{orgId},
+	    user_account = #{userAccount},
+	    state = #{state},
+		</set>
+		<where>
+		  id = #{id} 
+		  and customer_id = #{customerId} 
+		</where> 
+	</update>
+	
+	<delete id="deleteByPK">
+	   <!--存在删除状态键则逻辑删除-->
+		update sys_user_org
+		set is_delete = '1'
+		<where>
+		  id = #{id} 
+		  and customer_id = #{customerId}  
+		</where> 
+	</delete>
+	
+	<select id="selectByPK" resultMap="SysUserOrgMap">
+		select
+			<include refid="SysUserOrgCols"></include>
+		from sys_user_org
+		<where>
+		  id = #{id} 
+		  and customer_id = #{customerId}  
+		  and is_delete = '0'
+		</where> 
+	</select>
+	
+</mapper>

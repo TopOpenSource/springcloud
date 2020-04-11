@@ -1,0 +1,101 @@
+#网关
+gateway-server: http://172.16.200.49:88
+#注册中心
+eureka-server: http://172.16.200.49:8000
+#rabbitmq
+rabbitmq-host: 172.16.200.53
+rabbitmq-port: 5672
+rabbitmq-username: admin
+rabbitmq-password: qwe123-=
+#redis
+redis-host: 172.16.200.53
+redis-port: 6379
+redis-password: qwe123-=
+
+server:
+  port: 8102
+
+spring:
+  application:
+    name: baseservice
+  main:
+    allow-bean-definition-overriding: true
+  #bus
+  rabbitmq:
+    host: ${rabbitmq-host}
+    port: ${rabbitmq-port}
+    username: ${rabbitmq-username}
+    password: ${rabbitmq-password}
+  redis:
+    host: ${redis-host}
+    password: ${redis-password}
+    port: ${redis-port}
+  datasource:
+    url: jdbc:mysql://172.16.200.53:3306/baseservice?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: qwe123-=
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  activiti:
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+       initialize-schema: always
+       
+eureka:
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      lease-renewal-interval-in-seconds: 1 # 续约更新时间间隔(秒)
+      lease-expiration-duration-in-seconds: 2 # 续约到期时间
+  client:
+    service-url:
+      defaultZone: ${eureka-server}/eureka/
+    healthcheck:
+      enabled: true # 开启健康检查
+
+#超时时间设置
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+    
+logging:
+  config: classpath:log4j2.xml
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml,classpath:mapper/*/*.xml,classpath:mapper/*/*/*.xml
+  type-aliases-package: com.sdstc.*.model
+  configuration:
+    #当查询数据为空时字段返回为null，不加这个查询数据为空时，字段将被隐藏
+    call-setters-on-nulls: true
+    
+security:
+  oauth2:
+    client:
+      client-id: client1
+      client-secret: 111111
+      access-token-uri: ${gateway-server}/oauth/token
+      user-authorization-uri: ${gateway-server}/oauth/authorize
+      grant-type: client_credentials
+    resource:
+      user-info-uri: ${gateway-server}/api/oauth2/user
+      prefer-token-info: false
+    #resource:
+    #  jwt:
+    #    key-uri: ${oauth2-server}/oauth/token_key

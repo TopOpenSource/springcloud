@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'com.bmuschko.docker-remote-api'
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-log4j2')
+    //eureka
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    //config
+    compile('org.springframework.cloud:spring-cloud-config-client')
+    compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    //mybatis
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1')
+    compile('mysql:mysql-connector-java:8.0.19')
+    compile('com.microsoft.sqlserver:mssql-jdbc')
+    //redis
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    //activiti
+    compile('org.activiti:activiti-spring-boot-starter:7.1.0.M6'){
+     exclude group: 'org.springframework.boot', module: 'spring-boot'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-actuator-autoconfigure'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-configuration-processor'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-integration'
+     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
+    }
+    //quartz
+    compile('org.springframework.boot:spring-boot-starter-quartz')
+    //阿里云核心SDK库
+    compile('com.aliyun:aliyun-java-sdk-core:4.5.0')
+    //阿里云ECS库
+    compile('com.aliyun:aliyun-java-sdk-ecs:4.19.1')
+    //Apache HttpClient
+    compile('org.apache.httpcomponents:httpclient:4.5.12')
+    compile project(":securitypub")
+}
+
+docker {
+    url = 'tcp://172.16.200.51:2375'
+    registryCredentials{
+        url = 'registry.cn-hangzhou.aliyuncs.com'
+        username = 'hi30297787@aliyun.com'
+        password = 'sdstc!QAZ2wsx'
+    }
+}
+
+import com.bmuschko.gradle.docker.tasks.image.*
+//编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+//复制docker文件和jar
+task copyDockerfile(type: Copy){
+   File srcDir = file(buildDir)
+   File targetPath = file("${srcDir.getPath()}/docker/")
+   if (!targetPath.exists()){
+        targetPath.mkdirs()
+   }
+   
+   from "${srcDir.getPath()}/libs/baseservice.jar"
+   into "${targetPath.getPath()}/"
+   
+   from "${srcDir.getPath()}/resources/main/Dockerfile"
+   into "${targetPath.getPath()}/"
+}
+
+task buildDockerImage(type: DockerBuildImage,dependsOn:copyDockerfile){
+    images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/baseservice:0.0.1-dev')
+}
+
+task pushDockerImage(type: DockerPushImage,dependsOn:buildDockerImage){
+   images.add('registry.cn-hangzhou.aliyuncs.com/topcloud/baseservice:0.0.1-dev')
+}

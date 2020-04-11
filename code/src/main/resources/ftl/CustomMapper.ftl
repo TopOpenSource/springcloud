@@ -49,7 +49,7 @@
 	<select id="selectPageByDto" resultMap="${entityName}Map">
 		select
 			<include refid="${entityName}Cols"></include>
-		from pub_file
+		from ${tableName}
 		<where>
 		    <include refid="${entityName}DtoWhere"></include>
 		</where>

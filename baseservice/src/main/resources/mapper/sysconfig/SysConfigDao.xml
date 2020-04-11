@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdstc.sysconfig.dao.SysConfigDao">
+	
+	<resultMap id="SysConfigMap" type="com.sdstc.sysconfig.model.SysConfig">
+	    <id column="id" property="id" />
+	    <result column="type_" property="type" />
+	    <result column="key_" property="key" />
+	    <result column="value_" property="value" />
+	</resultMap>
+	
+    <sql id="SysConfigCols">
+      id,type_,key_,value_
+    </sql>
+    
+    <sql id="SysConfigProps">
+      #{id},#{type},#{key},#{value}
+    </sql>
+	
+	<select id="selConfig"  resultMap="SysConfigMap">
+		select
+			<include refid="SysConfigCols"></include>
+		from sys_config
+		<where>
+		    type_=#{type}
+		    and key_=#{key} 
+		</where>
+	</select>
+</mapper>

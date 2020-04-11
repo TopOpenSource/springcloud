@@ -81,6 +81,8 @@
 	</update>
 	
 	<delete id="deleteByPK">
+	   <!--存在删除状态键则逻辑删除-->
+	    <#if hasDel?string("true","false")== "false">
 		delete from ${tableName}
 		<where>
 		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
@@ -88,6 +90,16 @@
 		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
 		  </#if>
 		</where> 
+		<#else>
+		update ${tableName}
+		set ${sqlDelKey} = '1'
+		<where>
+		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
+		  <#if hasTenant?string("true","false")== "true">
+		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
+		  </#if>
+		</where> 
+		</#if>
 	</delete>
 	
 	<select id="selectByPK" resultMap="${entityName}Map">
@@ -98,6 +110,9 @@
 		  ${sqlPk} = ${"#{"+primaryKey+"}"} 
 		  <#if hasTenant?string("true","false")== "true">
 		  and ${sqlTenantKey} = ${"#{"+tenantKey+"}"}  
+		  </#if>
+		  <#if hasDel?string("true","false")== "true">
+		  and ${sqlDelKey} = '0'
 		  </#if>
 		</where> 
 	</select>

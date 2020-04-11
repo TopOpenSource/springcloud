@@ -7,9 +7,10 @@ ENV rabbitmq_username variable
 ENV rabbitmq_password variable
 ENV eureka_server variable
 ENV server_port variable
+ENV instance_id variable
 
 RUN mkdir -p /root/log
 RUN mkdir -p /root/config
 ADD configserver.jar /root/configserver.jar
 
-ENTRYPOINT exec java -jar /root/configserver.jar --spring.rabbitmq.host=$rabbitmq_host --spring.rabbitmq.port=$rabbitmq_port --spring.rabbitmq.username=$rabbitmq_username --spring.rabbitmq.password=$rabbitmq_password --eureka-server=$eureka_server --server.port=$server_port
+ENTRYPOINT exec java -jar /root/configserver.jar --spring.rabbitmq.host=$rabbitmq_host --spring.rabbitmq.port=$rabbitmq_port --spring.rabbitmq.username=$rabbitmq_username --spring.rabbitmq.password=$rabbitmq_password --eureka-server=$eureka_server --server.port=$server_port  --eureka.instance.instance-id=$instance_id

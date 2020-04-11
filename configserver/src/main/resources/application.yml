@@ -1,4 +1,4 @@
-eureka-server: http://localhost:8000
+eureka-server: http://172.16.200.49:8000
 
 spring:
   application:
@@ -10,11 +10,11 @@ spring:
      config:
         server:
            native:
-              searchLocations: /root/config
+              searchLocations: file:D://config
   #bus
   rabbitmq:
-     host: 172.16.200.12
-     port: 31430
+     host: 172.16.200.53
+     port: 5672
      username: admin
      password: qwe123-=
        
@@ -30,10 +30,18 @@ management:
         
 server:
   port: 8001
+  
 eureka:
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      lease-renewal-interval-in-seconds: 1 # 续约更新时间间隔(秒)
+      lease-expiration-duration-in-seconds: 2 # 续约到期时间
   client:
-    serviceUrl:
+    service-url:
       defaultZone: ${eureka-server}/eureka/
+    healthcheck:
+      enabled: true # 开启健康检查
       
 logging:
   config: classpath:log4j2.xml

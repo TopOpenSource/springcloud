@@ -1,0 +1,64 @@
+#注册中心
+eureka-server: http://172.16.200.49:8000
+#rabbitmq
+rabbitmq-host: 172.16.200.53
+rabbitmq-port: 5672
+rabbitmq-username: admin
+rabbitmq-password: qwe123-=
+#redis
+redis-host: 172.16.200.53
+redis-port: 6379
+redis-password: qwe123-=
+#记得修改数据源
+
+server:
+ port: 8002
+
+eureka:
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      lease-renewal-interval-in-seconds: 1 # 续约更新时间间隔(秒)
+      lease-expiration-duration-in-seconds: 2 # 续约到期时间
+  client:
+    service-url:
+      defaultZone: ${eureka-server}/eureka/
+    healthcheck:
+      enabled: true # 开启健康检查
+      
+spring:
+  application:
+    name: oauth2
+  #bus
+  rabbitmq:
+    host: ${rabbitmq-host}
+    port: ${rabbitmq-port}
+    username: ${rabbitmq-username}
+    password: ${rabbitmq-password}
+  session:
+    store-type: redis
+  redis:
+    host: ${redis-host}
+    password: ${redis-password}
+    port: ${redis-port}
+  datasource:
+    url: jdbc:mysql://172.16.200.53:3306/system?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: qwe123-=
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml,classpath:mapper/*/*.xml,classpath:mapper/*/*/*.xml
+  type-aliases-package: com.sdstc.*.model
+  configuration:
+    call-setters-on-nulls: true
+    
+oauth2:
+  #token有效期
+  accessTokenValiditySeconds: 1800
+  #token刷新有效期
+  refreshTokenValiditySeconds: 3000
+  signingKey: qwe123-=
+  #token类型 支持 beare 和 jwt
+  tokenType: bearer

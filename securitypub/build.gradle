@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+   //oauth2
+   compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+   compile('org.springframework.boot:spring-boot-starter-web')
+   //feign & hystrix
+   compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+   compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+   compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
+    
+   compile('org.apache.logging.log4j:log4j-slf4j-impl:2.13.0')
+   compile('org.apache.commons:commons-lang3:3.9')
+   compile('com.alibaba:fastjson:1.2.66')
+   compile project(":pub")
+}
+
+//编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

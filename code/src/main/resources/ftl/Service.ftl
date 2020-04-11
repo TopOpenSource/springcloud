@@ -1,6 +1,6 @@
 package ${servicePackage};
 
-import com.sdstc.oauth.service.Snowflake;
+import com.sdstc.pub.oauth.service.Snowflake;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

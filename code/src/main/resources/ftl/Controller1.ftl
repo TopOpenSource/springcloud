@@ -10,7 +10,7 @@ import com.sdstc.pub.dto.PageDto;
 import com.sdstc.pub.dto.PageResult;
 import com.sdstc.pub.dto.ResultDto;
 import ${modelPackage}.${entityName};
-import com.sdstc.oauth.service.Oauth2Service;
+import com.sdstc.pub.oauth.service.Oauth2Service;
 import ${serviceInterPackage}.${entityName}Service;
 import com.sdstc.pub.dto.LoginUserInfo;
 import lombok.extern.log4j.Log4j2;

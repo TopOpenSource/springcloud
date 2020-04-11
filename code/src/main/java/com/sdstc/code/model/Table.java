@@ -23,6 +23,10 @@ public class Table {
 	private String tenantKeyUpperCase;
 	private String sqlTenantKey;
 	private String tenantKeyJavaType;
+    //删除状态键
+	private Boolean hasDel;
+	private String sqlDelKey;
+	private String delKey;
 
 	// 实体名
 	private String entityName;

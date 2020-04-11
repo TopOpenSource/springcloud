@@ -8,6 +8,8 @@ import java.util.Set;
 public class Params {
 	//租户ID
 	public static String tenantCol="customer_id";
+	//删除状态
+	public static String delCol="is_delete";
 	
 	//文件分隔符
 	public static String fileSeq="//";
@@ -19,7 +21,7 @@ public class Params {
 			put("datetime", "Date");
 			put("varchar", "String");
 			put("bigint", "Long");
-			put("char", "char");
+			put("char", "String");
 			put("int", "Integer");
 			put("decimal","BigDecimal");
 		}
@@ -31,6 +33,7 @@ public class Params {
 			add("gmt_modified");
 			add("create_account");
 			add("modified_account");
+			add("is_delete");
 		}
 	};
     
