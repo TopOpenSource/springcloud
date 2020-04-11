@@ -1,7 +1,7 @@
 #网关
-gateway-server: http://172.16.200.49:88
+gateway-server: http://127.0.0.1:88
 #注册中心
-eureka-server: http://172.16.200.49:8000
+eureka-server: http://127.0.0.1:8000
 #rabbitmq
 rabbitmq-host: 172.16.200.53
 rabbitmq-port: 5672

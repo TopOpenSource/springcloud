@@ -7,6 +7,6 @@ spring:
         trace:
            enabled: true
      config:
-        uri: http://172.16.200.49:8001
+        uri: http://127.0.0.1:8001
         name: system
         profile: local
