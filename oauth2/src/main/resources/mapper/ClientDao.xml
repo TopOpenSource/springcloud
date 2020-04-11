@@ -20,7 +20,7 @@
        select 
          <include refid="ClientSql" />
        from 
-         sys_client
+         client
        where 
          client_id=#{clientId}
 	</select>

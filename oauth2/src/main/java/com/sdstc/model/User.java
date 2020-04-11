@@ -11,14 +11,14 @@ public class User {
 	private String pwd;
 	//短信验证码
 	private String smsCode;
-	//客户ID
-	private Long customerId;
+	//租户ID
+	private Long tenantId;
 	
 	public User() {
 		
 	}
-	public User(String account, Long customerId) {
+	public User(String account, Long tenantId) {
 		this.account=account;
-		this.customerId=customerId;
+		this.tenantId=tenantId;
 	}
 }

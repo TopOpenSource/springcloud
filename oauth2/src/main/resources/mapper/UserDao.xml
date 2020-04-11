@@ -20,7 +20,7 @@
 		<result column="pwd" property="pwd" />
 	</resultMap>
 
-	<resultMap id="CustomerMap" type="com.sdstc.model.Customer">
+	<resultMap id="TenantMap" type="com.sdstc.model.Tenant">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
 	</resultMap>
@@ -30,37 +30,37 @@
         select 
           t2.id,t2.code,t2.name 
         from 
-          sys_user_role t1
-		  left join sys_role t2 on t1.role_id=t2.id
+          user_role t1
+		  left join role t2 on t1.role_id=t2.id
 		where 
 		t1.user_account=#{account}
-		and t1.customer_id=#{customerId}        
+		and t1.tenant_id=#{tenantId}        
 	</select>
 
 	<select id="getPermsByUser" resultMap="PermMap">
        select 
          t3.id,t3.code,t3.name 
        from 
-         sys_role_perm t1
-		 left join sys_user_role t2 on t1.role_id=t2.role_id
-		 left join sys_perm t3 on t1.perm_id=t3.id
+         role_perm t1
+		 left join user_role t2 on t1.role_id=t2.role_id
+		 left join perm t3 on t1.perm_id=t3.id
       where 
 		 t2.user_account=#{account}
-		 and t2.customer_id=#{customerId}  
+		 and t2.tenant_id=#{tenantId}  
 	</select>
 
-	<select id="getCustomersByUser" resultMap="CustomerMap" parameterType="com.sdstc.model.User">
+	<select id="getTenantsByUser" resultMap="TenantMap" parameterType="com.sdstc.model.User">
          SELECT 
             DISTINCT( t2.id ) AS id,t2.NAME 
 		 FROM
-			sys_user_org t1
-			LEFT JOIN sys_customer t2 ON t1.customer_id = t2.id
+			user_org t1
+			LEFT JOIN tenant t2 ON t1.tenant_id = t2.id
          <where>
              <if test="account!=null">
              and t1.user_account=#{account}
              </if>
-             <if test="customerId!=null">
-             t2.id=#{customerId}
+             <if test="tenantId!=null">
+             t2.id=#{tenantId}
              </if>
          </where>  
 	</select>
@@ -69,7 +69,7 @@
          select 
            id,name,account,phone,email,pwd 
          from 
-           sys_user
+           user
 		 where 
 		  (account=#{account} or phone=#{account} or email=#{account})
 		  and state=1

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sdstc.dao.UserDao;
 import com.sdstc.integration.IntegrationAuthentication;
-import com.sdstc.model.Customer;
+import com.sdstc.model.Tenant;
 import com.sdstc.model.Perm;
 import com.sdstc.model.Role;
 import com.sdstc.model.User;
@@ -29,38 +29,35 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RedisService redisService;
 
-	public static final String redisHeader = "current_customer_";
+	public static final String redisHeader = "current_tenant_";
 	
 	private static final String SMS_CODE_HEADER="LOGIN_SMS_CODE_";
-	
-	
-	
 
 	/**
 	 * 获取角色
 	 * 
 	 * @param account
-	 * @param customerId
+	 * @param tenantId
 	 * @return
 	 */
-	private List<Role> getRolesByUser(String account, Long customerId) {
-		return userDao.getRolesByUser(account, customerId);
+	private List<Role> getRolesByUser(String account, Long tenantId) {
+		return userDao.getRolesByUser(account, tenantId);
 	}
 
 	/**
 	 * 获取权限
 	 * 
 	 * @param account
-	 * @param customerId
+	 * @param tenantId
 	 * @return
 	 */
-	private List<Perm> getPermsByUser(String account, Long customerId) {
-		return userDao.getPermsByUser(account, customerId);
+	private List<Perm> getPermsByUser(String account, Long tenantId) {
+		return userDao.getPermsByUser(account, tenantId);
 	}
 
 	@Override
-	public List<Customer> getCustomersByUser(User user) {
-		return userDao.getCustomersByUser(user);
+	public List<Tenant> getTenantsByUser(User user) {
+		return userDao.getTenantsByUser(user);
 	}
 
 	@Override
@@ -75,22 +72,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserSecurity getUserSecurity(String account, Long customerId, String authType) {
+	public UserSecurity getUserSecurity(String account, Long tenantId, String authType) {
 		// 获取用户信息
 		User userInfo = this.getUser(account);
 		// 获取所属的全部客户信息
-		List<Customer> customers = this.getCustomersByUser(new User(account, null));
+		List<Tenant> tenants = this.getTenantsByUser(new User(account, null));
 
-		Customer customer = null;
-		if (customerId == null) {
+		Tenant tenant = null;
+		if (tenantId == null) {
 			// 默认取第一个
-			customer = customers.get(0);
+			tenant = tenants.get(0);
 		} else {
-			List<Customer> customers2 = customers.stream().filter(x -> {
-				return x.getId().equals(customerId);
+			List<Tenant> tenants2 = tenants.stream().filter(x -> {
+				return x.getId().equals(tenantId);
 			}).collect(Collectors.toList());
-			if (customers2 != null && customers2.size() == 1) {
-				customer = customers2.get(0);
+			if (tenants2 != null && tenants2.size() == 1) {
+				tenant = tenants2.get(0);
 			} else {
 				log.error("no cusotemer!");
 				return null;
@@ -100,13 +97,13 @@ public class UserServiceImpl implements UserService {
 		if (userInfo != null) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			// 获取角色
-			List<Role> roles = this.getRolesByUser(account, customer.getId());
+			List<Role> roles = this.getRolesByUser(account, tenant.getId());
 			for (Role role : roles) {
 				authorities.add(new SimpleGrantedAuthority(role.getCode()));
 
 			}
 			// 获取权限
-			List<Perm> perms = this.getPermsByUser(account, customer.getId());
+			List<Perm> perms = this.getPermsByUser(account, tenant.getId());
 			for (Perm perm : perms) {
 				authorities.add(new SimpleGrantedAuthority(perm.getCode()));
 			}
@@ -123,8 +120,8 @@ public class UserServiceImpl implements UserService {
 			}else {
 				log.error("不支持此验证类型"+authType);
 			}
-			user.setCustomer(customer);
-			user.setCustomers(customers);
+			user.setTenant(tenant);
+			user.setTenants(tenants);
 			user.setUserName(userInfo.getName());
 			return user;
 		} else {

@@ -30,8 +30,8 @@ public class JWTTokenEnhancer implements TokenEnhancer {
 		
 		UserSecurity user=(UserSecurity) authentication.getPrincipal();
 		Map<String, Object> info = new HashMap<>();
-        info.put("customer",user.getCustomer());
-        info.put("customers",user.getCustomers());
+        info.put("tenant",user.getTenant());
+        info.put("tenants",user.getTenants());
         info.put("userName",user.getUserName());
         info.put("userAccount", user.getUsername());
         info.put("auths", auths);

@@ -14,8 +14,8 @@ import lombok.Data;
 public class LoginUserInfo {
    private String userAccount;
    private String userName;
-   private Long customerId;
-   private String customerName;
+   private Long tenantId;
+   private String tenantName;
    private List<String> userAuths;
    
    public void addAuth(String auth) {

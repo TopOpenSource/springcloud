@@ -3,7 +3,7 @@ gateway-server: http://127.0.0.1:88
 #注册中心
 eureka-server: http://127.0.0.1:8000
 #rabbitmq
-rabbitmq-host: 172.16.200.53
+rabbitmq-host: 172.16.200.12
 rabbitmq-port: 5672
 rabbitmq-username: admin
 rabbitmq-password: qwe123-=
@@ -24,67 +24,19 @@ spring:
     password: ${rabbitmq-password}
   shardingsphere:
     datasource:
-      names:  system,sysservice-0,sysservice-1,sysservice-2,project-0,project-1,project-2,lre-project-0,lre-project-1,lre-project-2
+      names:  system,sysservice-0
       system:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.12:3306/system?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=
       sysservice-0:
         type: com.zaxxer.hikari.HikariDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/sysservice-0?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+        jdbcUrl: jdbc:mysql://172.16.200.12:3306/sysservice-0?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qwe123-=
-      sysservice-1:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/sysservice-1?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      sysservice-2:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/sysservice-2?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      project-0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/project-0?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      project-1:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/project-1?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      project-2:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/project-2?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=  
-      lre-project-0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/lre-project-0?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      lre-project-1:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/lre-project-1?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=
-      lre-project-2:
-        type: com.zaxxer.hikari.HikariDataSource
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://172.16.200.53:3306/lre-project-2?characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
-        username: root
-        password: qwe123-=  
     sharding:
         broadcastTables:
         - sys_dict
@@ -92,45 +44,45 @@ spring:
         - sys_file,sys_file_relation,sys_log,sys_message
         tables:
           sys_file:
-            actualDataNodes: sysservice-${0..2}.sys_file_${0..3}
+            actualDataNodes: sysservice-${0}.sys_file_${0}
             databaseStrategy:
               inline:
                 shardingColumn: customer_id
-                algorithmExpression: sysservice-${customer_id % 3}
+                algorithmExpression: sysservice-${0}
             tableStrategy: 
                 inline:
                   shardingColumn: customer_id
-                  algorithmExpression: sys_file_${customer_id % 4}
+                  algorithmExpression: sys_file_${0}
           sys_file_relation:
-            actualDataNodes: sysservice-${0..2}.sys_file_relation_${0..3}
+            actualDataNodes: sysservice-${0}.sys_file_relation_${0}
             databaseStrategy:
               inline:
                 shardingColumn: customer_id
-                algorithmExpression: sysservice-${customer_id % 3}
+                algorithmExpression: sysservice-${0}
             tableStrategy: 
                 inline:
                   shardingColumn: customer_id
-                  algorithmExpression: sys_file_relation_${customer_id % 4}
+                  algorithmExpression: sys_file_relation_${0}
           sys_log:
-            actualDataNodes: sysservice-${0..2}.sys_log_${0..3}
+            actualDataNodes: sysservice-${0}.sys_log_${0}
             databaseStrategy:
               inline:
                 shardingColumn: customer_id
-                algorithmExpression: sysservice-${customer_id % 3}
+                algorithmExpression: sysservice-${0}
             tableStrategy: 
                 inline:
                   shardingColumn: customer_id
-                  algorithmExpression: sys_log_${customer_id % 4}
+                  algorithmExpression: sys_log_${0}
           sys_message:
-            actualDataNodes: sysservice-${0..2}.sys_message_${0..3}
+            actualDataNodes: sysservice-${0}.sys_message_${0}
             databaseStrategy:
               inline:
                 shardingColumn: customer_id
-                algorithmExpression: sysservice-${customer_id % 3}
+                algorithmExpression: sysservice-${0}
             tableStrategy: 
                 inline:
                   shardingColumn: customer_id
-                  algorithmExpression: sys_message_${customer_id % 4}
+                  algorithmExpression: sys_message_${0}
     props:
       sql:
         #生产环境关闭

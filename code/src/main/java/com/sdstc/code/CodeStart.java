@@ -23,7 +23,7 @@ public class CodeStart {
 		String serviceName = "file";
 
 		// 数据源
-		String jdbcUrl = "172.16.200.53:3306";
+		String jdbcUrl = "172.16.200.12:3306";
 		String scheme = "sysservice";
 		String userName = "root";
 		String pwd = "qwe123-=";

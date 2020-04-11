@@ -65,7 +65,7 @@ public class TokenController {
 		OAuth2Authentication oauth2=(OAuth2Authentication) principal;
 		UserSecurity user=(UserSecurity) oauth2.getUserAuthentication().getPrincipal();
 		LoginUserInfo userInfo=new LoginUserInfo();
-		userInfo.setCustomerId(user.getCustomer().getId());
+		userInfo.setTenantId(user.getTenant().getId());
 		userInfo.setUserAccount(user.getUsername());
 		for(GrantedAuthority auth:user.getAuthorities()) {
 			userInfo.addAuth(auth.getAuthority());
@@ -117,14 +117,14 @@ public class TokenController {
 	/**
 	   *   切换 所属客户
 	 * @param principal
-	 * @param customerId
+	 * @param tenantId
 	 * @return
 	 */
-	@RequestMapping("switchCustomer")
-	public ResultDto switchCustomer(OAuth2Authentication authentication,Long customerId) {
+	@RequestMapping("switchTenant")
+	public ResultDto switchTenant(OAuth2Authentication authentication,Long tenantId) {
 		/**
 		UserSecurity user=(UserSecurity) authentication.getPrincipal();
-		user=userService.getUserSecurity(user.getUsername(), customerId);
+		user=userService.getUserSecurity(user.getUsername(), tenantId);
 		
 		SecurityContext securityContext =SecurityContextHolder.getContext();
 		UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());

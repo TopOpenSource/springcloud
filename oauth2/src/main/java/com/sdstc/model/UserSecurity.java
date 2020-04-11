@@ -15,9 +15,9 @@ public class UserSecurity extends User {
 	// 用户名称
 	private String userName;
     //所属客户列表
-	private List<Customer> customers;
+	private List<Tenant> tenants;
 	//所选客户
-	private  Customer customer;
+	private Tenant tenant;
 	
 	public String getUserName() {
 		return userName;
@@ -25,17 +25,17 @@ public class UserSecurity extends User {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public List<Customer> getCustomers() {
-		return customers;
+	public List<Tenant> getTenants() {
+		return tenants;
 	}
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
+	public void setTenants(List<Tenant> tenants) {
+		this.tenants = tenants;
 	}
-	public Customer getCustomer() {
-		return customer;
+	public Tenant getTenant() {
+		return tenant;
 	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
 	}
 	
 	
